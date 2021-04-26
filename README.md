@@ -8,3 +8,5 @@ Oran is in charge of writing code for the overall project
 If either needs help, message via Discord
 
 hello - Diego
+
+hello - Oran
