@@ -58,47 +58,47 @@ class Play extends Phaser.Scene {
         // tall table
         this.table1 = new Obstacle(
             this, 
-            game.config.width,
+            game.config.width * 4 / 3,
             game.config.height / 2,
             'table1',
             0
-        ).setOrigin(0, 0);
+        ).setOrigin(0.5, 0);
 
         // wide table
         this.table2 = new Obstacle(
             this, 
-            game.config.width,
+            game.config.width * 4 / 3,
             game.config.height / 2,
             'table2',
             0
-        ).setOrigin(0, 0);
+        ).setOrigin(0.5, 0);
 
         // yarn
         this.yarn = new Obstacle(
             this, 
-            game.config.width,
+            game.config.width * 4 / 3,
             game.config.height / 2,
             'yarn',
             0
-        ).setOrigin(0, 0);
+        ).setOrigin(0.5, 0);
 
         // feather
         this.feather = new Obstacle(
             this, 
-            game.config.width,
+            game.config.width * 4 / 3,
             game.config.height / 2,
             'feather',
             0
-        ).setOrigin(0, 0);
+        ).setOrigin(0.5, 0);
 
         // catnip
         this.catnip = new Obstacle(
             this, 
-            game.config.width,
+            game.config.width * 4 / 3,
             game.config.height / 2,
             'catnip',
             0
-        ).setOrigin(0, 0);
+        ).setOrigin(0.5, 0);
 
         this.obstacles = [this.catnip, this.feather, this.yarn]
 
@@ -117,6 +117,7 @@ class Play extends Phaser.Scene {
             this.makingObstacle = true;
             obs.destroyed = false;
             obs.reset();
+            this.table1.reset();
         }
         
     }
