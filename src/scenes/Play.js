@@ -19,26 +19,67 @@ class Play extends Phaser.Scene {
         this.load.image('yarn', 'assets/img/obstacle_yarn.png');
 
         // value objects
-        this.load.image('lamp', 'assets/img/value_lamp');
-        this.load.image('picframe1', 'assets/img/value_pictureframe1');
-        this.load.image('picframe2', 'assets/img/value_pictureframe2');
-        this.load.image('vase', 'assets/img/value_vase_empty');
-        this.load.image('flower_vase', 'assets/img/value_vase_flower');
+        this.load.image('lamp', 'assets/img/value_lamp.png');
+        this.load.image('picframe1', 'assets/img/value_pictureframe1.png');
+        this.load.image('picframe2', 'assets/img/value_pictureframe2.png');
+        this.load.image('vase', 'assets/img/value_vase_empty.png');
+        this.load.image('flower_vase', 'assets/img/value_vase_flower.png');
 
         /* load audio */
-        this.load.audio('music', 'background song.mp3');
-        this.load.audio('land', 'cat landing.wav');
-        this.load.audio('glass', 'glass break.wav');
-        this.load.audio('lose_life', 'Distressed_Meow.mp3');
-        this.load.audio('game_over', 'LoseCondition1.wav');
-        this.load.audio('game_over_music', 'game over song.mp3');
+        this.load.audio('music', '/assets/aud/background song.mp3');
+        this.load.audio('land', '/assets/aud/cat landing.wav');
+        this.load.audio('glass', '/assets/aud/glass break.wav');
+        this.load.audio('lose_life', '/assets/aud/Distressed_Meow.mp3');
+        this.load.audio('game_over', '/assets/aud/LoseCondition1.wav');
+        this.load.audio('game_over_music', '/assets/aud/game over song.mp3');
     }
 
     create() {
         // wall background
-        this.hallway = this.add.tilesprite(0, 0, 640, 480, 'wall').setOrigin(0, 0);
+        this.hallway = this.add.tileSprite(0, 0, 860, 500, 'wall').setOrigin(0, 0);
+
+        // play music
+        // this.sound.play('music'); // this music kinda annoying so uncomment for now XD
+
+        // code to make running cat
+
+        // spawn obstacles on random interval
+        this.makingObstacle = false;
+        game.settings = {
+            speed: 1
+        }
+
+
+        this.ob1 = new Obstacle(
+            this, 
+            game.config.width / 2,
+            game.config.height / 2,
+            'table1',
+            0
+        ).setOrigin(0, 0);
+
+    }
+
+    makeObstacle() {
+        // rng from 0-2 for the 3 potential obstacles
+        let rng = Math.floor(Math.random() * 3);
+    }
 
 
 
+    update() {
+        // make background move
+        this.hallway.tilePositionX -= 4; // doesn't really do anything because background is still image
+        
+        // spawn obstacle if flag is false
+        if (!this.makingObstacle) {
+            this.makingObstacle = true;
+
+
+        }  
+        this.ob1.update();
+    
+    
+    
     }
 }
