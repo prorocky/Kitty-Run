@@ -46,23 +46,79 @@ class Play extends Phaser.Scene {
         // spawn obstacles on random interval
         this.makingObstacle = false;
         game.settings = {
-            speed: 1
+            speed: 1.5
         }
 
+        
 
-        this.ob1 = new Obstacle(
+        // "destroyed" objects are invisible and "stored" to the left of the 
+        // main play screen. When we want to reuse/reset them, we move their x
+        // to the very right and then change the destroyed flag
+
+        // tall table
+        this.table1 = new Obstacle(
             this, 
-            game.config.width / 2,
+            game.config.width,
             game.config.height / 2,
             'table1',
             0
         ).setOrigin(0, 0);
+
+        // wide table
+        this.table2 = new Obstacle(
+            this, 
+            game.config.width,
+            game.config.height / 2,
+            'table2',
+            0
+        ).setOrigin(0, 0);
+
+        // yarn
+        this.yarn = new Obstacle(
+            this, 
+            game.config.width,
+            game.config.height / 2,
+            'yarn',
+            0
+        ).setOrigin(0, 0);
+
+        // feather
+        this.feather = new Obstacle(
+            this, 
+            game.config.width,
+            game.config.height / 2,
+            'feather',
+            0
+        ).setOrigin(0, 0);
+
+        // catnip
+        this.catnip = new Obstacle(
+            this, 
+            game.config.width,
+            game.config.height / 2,
+            'catnip',
+            0
+        ).setOrigin(0, 0);
+
+        this.obstacles = [this.catnip, this.feather, this.yarn]
+
+
+
+
 
     }
 
     makeObstacle() {
         // rng from 0-2 for the 3 potential obstacles
         let rng = Math.floor(Math.random() * 3);
+        console.log(rng);
+        let obs = this.obstacles[rng];
+        if (obs.destroyed) {
+            this.makingObstacle = true;
+            obs.destroyed = false;
+            obs.reset();
+        }
+        
     }
 
 
@@ -74,10 +130,17 @@ class Play extends Phaser.Scene {
         // spawn obstacle if flag is false
         if (!this.makingObstacle) {
             this.makingObstacle = true;
-
-
-        }  
-        this.ob1.update();
+            this.makeObstacle();
+        }
+        this.table1.update();
+        this.table2.update();
+        this.feather.update();
+        this.yarn.update();
+        this.catnip.update();
+        // this.table1.update();
+        if (this.yarn.destroyed && this.feather.destroyed && this.catnip.destroyed) {
+            this.makingObstacle = false;
+        }
     
     
     
