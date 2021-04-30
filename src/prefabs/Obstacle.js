@@ -21,7 +21,7 @@ class Obstacle extends Phaser.GameObjects.Sprite {
     }
 
     reset() {
-        this.x = game.config.width;
+        this.x = game.config.width * 4 / 3;
         this.destroyed = false;
     }
 }
