@@ -100,7 +100,7 @@ class Play extends Phaser.Scene {
             0
         ).setOrigin(0.5, 0);
 
-        this.obstacles = [this.catnip, this.feather, this.yarn]
+        this.obstacles = [this.catnip, this.feather, this.yarn];
 
 
 
