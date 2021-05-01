@@ -13,15 +13,19 @@ class Obstacle extends Phaser.GameObjects.Sprite {
             this.x -= game.settings.speed;
         }
         
-        
-        // store "destroyed" object at left of screen
+        // reset "destroyed" object at right of screen
         if (this.x < -this.width) {
-            this.destroyed = true;
+            this.reset();
         }
+    }
+
+    activate() {
+        this.destroyed = false;
+        // console.log("activated");
     }
 
     reset() {
         this.x = game.config.width * 4 / 3;
-        this.destroyed = false;
+        this.destroyed = true;
     }
 }

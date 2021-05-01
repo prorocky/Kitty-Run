@@ -77,7 +77,7 @@ class Play extends Phaser.Scene {
         this.yarn = new Obstacle(
             this, 
             game.config.width * 4 / 3,
-            game.config.height / 2,
+            game.config.height * 6 / 8,
             'yarn',
             0
         ).setOrigin(0.5, 0);
@@ -86,21 +86,21 @@ class Play extends Phaser.Scene {
         this.feather = new Obstacle(
             this, 
             game.config.width * 4 / 3,
-            game.config.height / 2,
+            game.config.height * 6 / 8,
             'feather',
             0
         ).setOrigin(0.5, 0);
 
         // catnip
         this.catnip = new Obstacle(
-            this, 
+            this,
             game.config.width * 4 / 3,
-            game.config.height / 2,
+            game.config.height * 6 / 8,
             'catnip',
             0
         ).setOrigin(0.5, 0);
 
-        this.obstacles = [this.catnip, this.feather, this.yarn];
+        obstacles = [this.catnip, this.feather, this.yarn];
 
 
 
@@ -111,15 +111,8 @@ class Play extends Phaser.Scene {
     makeObstacle() {
         // rng from 0-2 for the 3 potential obstacles
         let rng = Math.floor(Math.random() * 3);
-        console.log(rng);
-        let obs = this.obstacles[rng];
-        if (obs.destroyed) {
-            this.makingObstacle = true;
-            obs.destroyed = false;
-            obs.reset();
-            this.table1.reset();
-        }
-        
+        let obs = obstacles[rng];
+        obs.activate();
     }
 
 
@@ -128,20 +121,23 @@ class Play extends Phaser.Scene {
         // make background move
         this.hallway.tilePositionX -= 4; // doesn't really do anything because background is still image
         
-        // spawn obstacle if flag is false
-        if (!this.makingObstacle) {
+        // spawn obstacle on delay if flag is false
+        if (!this.makingObstacle && this.yarn.destroyed && this.feather.destroyed && this.catnip.destroyed) {
             this.makingObstacle = true;
-            this.makeObstacle();
+            this.obsTimer = this.time.addEvent({
+                delay: Math.floor((Math.random() * 3) + 1) * 1000,
+                callback: this.makeObstacle,
+                loop: true
+            });
         }
+
         this.table1.update();
         this.table2.update();
         this.feather.update();
         this.yarn.update();
         this.catnip.update();
         // this.table1.update();
-        if (this.yarn.destroyed && this.feather.destroyed && this.catnip.destroyed) {
-            this.makingObstacle = false;
-        }
+        
     
     
     
