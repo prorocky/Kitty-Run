@@ -22,8 +22,18 @@ class Play extends Phaser.Scene {
         this.load.image('lamp', 'assets/img/value_lamp.png');
         this.load.image('vase', 'assets/img/value_vase_empty.png');
         this.load.image('flower_vase', 'assets/img/value_vase_flower.png');
-            // list of all different possible pictures
-        // this.load.image
+        // list of all different possible pictures
+        this.load.image('pic1', 'assets/img/p1.png');
+        this.load.image('pic2', 'assets/img/p2.png');
+        this.load.image('pic3', 'assets/img/p3.png');
+        this.load.image('pic4', 'assets/img/p4.png');
+        this.load.image('pic5', 'assets/img/p5.png');
+        this.load.image('pic6', 'assets/img/p6.png');
+        this.load.image('pic7', 'assets/img/p7.png');
+        this.load.image('pic8', 'assets/img/p8.png');
+        this.load.image('pic9', 'assets/img/p9.png');
+        this.load.image('pic10', 'assets/img/p10.png');
+
 
         /* load audio */
         this.load.audio('music', '/assets/aud/background song.mp3');
@@ -60,7 +70,7 @@ class Play extends Phaser.Scene {
         this.table1 = new Obstacle(
             this, 
             game.config.width * 4 / 3,
-            game.config.height / 2,
+            game.config.height * 2 / 3,
             'table1',
             0
         ).setOrigin(0.5, 0);
@@ -69,7 +79,7 @@ class Play extends Phaser.Scene {
         this.table2 = new Obstacle(
             this, 
             game.config.width * 4 / 3,
-            game.config.height / 2,
+            game.config.height * 2 / 3,
             'table2',
             0
         ).setOrigin(0.5, 0);
@@ -132,10 +142,19 @@ class Play extends Phaser.Scene {
 
         pointObjects = [this.flowerVase, this.emptyVase, this.lamp];
 
+        this.picFrame1 = new Obstacle(
+            this,
+            game.config.width * 4 / 3,
+            game.config.height * 1 / 3,
+            'pic1',
+            0
+        ).setOrigin(0.5, 0.5);
+
         // this.table1.activate();
-        // this.emptyVase.activate();
+        // this.emptyVase.activate(); 
         // this.flowerVase.activate();
         // this.lamp.activate();
+        this.picFrame1.activate();
 
 
 
@@ -161,7 +180,7 @@ class Play extends Phaser.Scene {
 
     makePoint(table) {
         // rng from 0-2 for the 3 potential obstacles
-        let rng = Math.floor(Math.random() * 3);
+        let rng = Math.floor(Math.random() * pointObjects.length);
         let ptObj = pointObjects[rng];
         ptObj.activate();
         table.activate();
@@ -179,7 +198,7 @@ class Play extends Phaser.Scene {
 
     update() {
         // make background move
-        this.hallway.tilePositionX -= 4; // doesn't really do anything because background is still image
+        this.hallway.tilePositionX += game.settings.speed; // doesn't really do anything because background is still image
         
         // spawn obstacle on delay if flag is false
         if (!this.makingObstacle && this.yarn.destroyed && this.feather.destroyed && this.catnip.destroyed) {
@@ -192,7 +211,7 @@ class Play extends Phaser.Scene {
         }
 
         // spawn obstacle on delay if flag is false
-        if (!this.makingPoint && !this.table1.destroyed && this.table2.destroyed) {
+        if (this.table1.destroyed && this.table2.destroyed) {
             let table;
             if (Math.floor(Math.random() * 2)) {
                 table = this.table1;
@@ -208,6 +227,9 @@ class Play extends Phaser.Scene {
             });
         }
 
+
+
+
         // update all objects
         this.table1.update();
         this.table2.update();
@@ -217,6 +239,7 @@ class Play extends Phaser.Scene {
         this.emptyVase.update();
         this.flowerVase.update();
         this.lamp.update();
+        this.picFrame1.update();
         // this.table1.update();
 
 

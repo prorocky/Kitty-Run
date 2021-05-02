@@ -32,3 +32,6 @@ I noticed there was almost no difference between the point objects and obstacles
 so I decided to make them from the same class. The only difference is what
 happens when the cat collides with them so I think we can handle that in Play.js
 
+Oran
+5/1/21 8:26 pm
+New background, changed size to 1920x1080
