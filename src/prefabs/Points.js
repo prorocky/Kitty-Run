@@ -1,17 +1,12 @@
 /**
  * Oran Shadian
  */
-class Obstacle extends Phaser.GameObjects.Sprite {
-    constructor(scene, x, y, texture, frame, addToArray) {
+ class Points extends Phaser.GameObjects.Sprite {
+    constructor(scene, x, y, texture, frame) {
         super(scene, x, y, texture, frame);
         scene.add.existing(this);
         this.destroyed = true;
-        this.add = addToArray;
-        if (this.add) {
-            obstacles.push(this);
-        } else {
-            tables.push(this);
-        }
+        pointObjects.push(this);
     }
 
     update() {
@@ -32,10 +27,6 @@ class Obstacle extends Phaser.GameObjects.Sprite {
     reset() {
         this.x = game.config.width * 4 / 3;
         this.destroyed = true;
-        if (this.add) {
-            obstacles.push(this);
-        } else {
-            tables.push(this);
-        }
+        pointObjects.push(this);
     }
 }

@@ -66,58 +66,170 @@ class Play extends Phaser.Scene {
         // main play screen. When we want to reuse/reset them, we move their x
         // to the very right and then change the destroyed flag
 
-        // tall table
-        this.table1 = new Obstacle(
+        // tall table 1
+        this.tableTall1 = new Obstacle(
             this, 
             game.config.width * 4 / 3,
             game.config.height * 2 / 3,
             'table1',
+            0,
             0
         ).setOrigin(0.5, 0);
 
-        // wide table
-        this.table2 = new Obstacle(
+        // tall table 2
+        this.tableTall2 = new Obstacle(
+            this, 
+            game.config.width * 4 / 3,
+            game.config.height * 2 / 3,
+            'table1',
+            0,
+            0
+        ).setOrigin(0.5, 0);
+
+        // tall table 3
+        this.tableTall3 = new Obstacle(
+            this, 
+            game.config.width * 4 / 3,
+            game.config.height * 2 / 3,
+            'table1',
+            0,
+            0
+        ).setOrigin(0.5, 0);
+
+        // wide table 1
+        this.tableWide1 = new Obstacle(
             this, 
             game.config.width * 4 / 3,
             game.config.height * 2 / 3,
             'table2',
+            0,
             0
         ).setOrigin(0.5, 0);
 
-        // yarn
-        this.yarn = new Obstacle(
+        // wide table 2
+        this.tableWide2 = new Obstacle(
+            this, 
+            game.config.width * 4 / 3,
+            game.config.height * 2 / 3,
+            'table2',
+            0,
+            0
+        ).setOrigin(0.5, 0);
+
+        // wide table 3
+        this.tableWide3 = new Obstacle(
+            this, 
+            game.config.width * 4 / 3,
+            game.config.height * 2 / 3,
+            'table2',
+            0,
+            0
+        ).setOrigin(0.5, 0);
+
+        tables = [this.tableTall1, this.tableTall2, this.tableTall3, this.tableWide1, this.tableWide2, this.tableWide3];
+
+        // yarn 1
+        this.yarn1 = new Obstacle(
             this, 
             game.config.width * 4 / 3,
             game.config.height * 9 / 11,
             'yarn',
-            0
+            0,
+            1
         ).setOrigin(0.5, 0);
 
-        // feather
-        this.feather = new Obstacle(
+        // yarn 2
+        this.yarn2 = new Obstacle(
+            this, 
+            game.config.width * 4 / 3,
+            game.config.height * 9 / 11,
+            'yarn',
+            0,
+            1
+        ).setOrigin(0.5, 0);
+
+
+        // yarn 3
+        this.yarn3 = new Obstacle(
+            this, 
+            game.config.width * 4 / 3,
+            game.config.height * 9 / 11,
+            'yarn',
+            0,
+            1
+        ).setOrigin(0.5, 0);
+
+        // feather 1
+        this.feather1 = new Obstacle(
             this, 
             game.config.width * 4 / 3,
             game.config.height * 9 / 11,
             'feather',
-            0
+            0,
+            1
         ).setOrigin(0.5, 0);
 
-        // catnip
-        this.catnip = new Obstacle(
+        // feather 2
+        this.feather2 = new Obstacle(
+            this, 
+            game.config.width * 4 / 3,
+            game.config.height * 9 / 11,
+            'feather',
+            0,
+            1
+        ).setOrigin(0.5, 0);
+
+
+        // feather 3
+        this.feather3 = new Obstacle(
+            this, 
+            game.config.width * 4 / 3,
+            game.config.height * 9 / 11,
+            'feather',
+            0,
+            1
+        ).setOrigin(0.5, 0);
+
+        // catnip 1
+        this.catnip1 = new Obstacle(
             this,
             game.config.width * 4 / 3,
             game.config.height * 9 / 11,
             'catnip',
-            0
+            0,
+            1
         ).setOrigin(0.5, 0);
 
-        obstacles = [this.catnip, this.feather, this.yarn];
+        // catnip 2
+        this.catnip2 = new Obstacle(
+            this,
+            game.config.width * 4 / 3,
+            game.config.height * 9 / 11,
+            'catnip',
+            0,
+            1
+        ).setOrigin(0.5, 0);
+
+
+        // catnip 3
+        this.catnip3 = new Obstacle(
+            this,
+            game.config.width * 4 / 3,
+            game.config.height * 9 / 11,
+            'catnip',
+            0,
+            1
+        ).setOrigin(0.5, 0);
+
+        // obstacles = [this.catnip1, this.catnip2, this.catnip3, this.feather1, this.feather2, this.feather3, this.yarn1, this.yarn2, this.yarn3];
+        
+
 
         // vase without flowers
         this.emptyVase = new Obstacle(
             this,
             game.config.width * 4 / 3,
-            this.table1.y + 10,
+            this.tableTall1.y + 10,
             'vase',
             0
         ).setOrigin(0.5, 1);
@@ -126,7 +238,7 @@ class Play extends Phaser.Scene {
         this.flowerVase = new Obstacle(
             this,
             game.config.width * 4 / 3,
-            this.table1.y + 6,
+            this.tableTall1.y + 6,
             'flower_vase',
             0
         ).setOrigin(0.5, 1);
@@ -135,12 +247,13 @@ class Play extends Phaser.Scene {
         this.lamp = new Obstacle(
             this,
             game.config.width * 4 / 3,
-            this.table1.y + 6,
+            this.tableTall1.y + 6,
             'lamp',
             0
         ).setOrigin(0.5, 1);
 
-        pointObjects = [this.flowerVase, this.emptyVase, this.lamp];
+        // pointObjects = [this.flowerVase, this.emptyVase, this.lamp];
+        
 
         this.picFrame1 = new Obstacle(
             this,
@@ -150,12 +263,12 @@ class Play extends Phaser.Scene {
             0
         ).setOrigin(0.5, 0.5);
 
-        // this.table1.activate();
-        // this.emptyVase.activate(); 
-        // this.flowerVase.activate();
-        // this.lamp.activate();
         this.picFrame1.activate();
-
+        this.shuffle(obstacles);
+        console.log(pointObjects);
+        this.shuffle(pointObjects);
+        console.log(pointObjects);
+        this.shuffle(tables);
 
 
 
@@ -166,24 +279,72 @@ class Play extends Phaser.Scene {
             loop: true
         });
 
+        // every 5 seconds, attempt to make an obstacle
+        this.obsTimer = this.time.addEvent({
+            delay: 5000,
+            callback: this.callWithDelay,
+            args: [2, 6 - game.settings.speed, this.makeObstacle],
+            loop: true
+        });
 
+        // every 7 seconds, attempt to make an point object
+        this.ptTimer = this.time.addEvent({
+            delay: 6000,
+            callback: this.callWithDelay,
+            args: [2, 10 - (3 / 2 * game.settings.speed), this.makePoint],
+            loop: true
+        });
 
+    }
+    // shuffle method from https://stackoverflow.com/questions/6274339/how-can-i-shuffle-an-array
+    shuffle(a) {
+        let j, x, i;
+        for (i = a.length - 1; i > 0; i--) {
+            j = Math.floor(Math.random() * (i + 1));
+            x = a[i];
+            a[i] = a[j];
+            a[j] = x;
+        }
+        return a;
+    }
+
+    // Calls the function in parameter after an random delay between min and max seconds
+    callWithDelay(min, max, func) {
+        setTimeout(func, (Math.floor(Math.random() * max) + min) * 1000);
     }
 
     // create random object from array of obstacles
     makeObstacle() {
-        // rng from 0-2 for the 3 potential obstacles
-        let rng = Math.floor(Math.random() * 3);
-        let obs = obstacles[rng];
+        console.log("Making obstacle");
+        // select a random object from the array of objects
+        let obs = obstacles[Math.floor(Math.random() * obstacles.length)];
+        // make sure to select one that is not already on screen (3 of each type exist)
+        while (!obs.destroyed) {
+            obs = obstacles[Math.floor(Math.random() * obstacles.length)];
+        }
+
+        // activate obstacle
         obs.activate();
     }
 
-    makePoint(table) {
-        // rng from 0-2 for the 3 potential obstacles
-        let rng = Math.floor(Math.random() * pointObjects.length);
-        let ptObj = pointObjects[rng];
+    makePoint() {
+        console.log("Making point");
+        // select random point object from array of point objects
+        let ptObj = pointObjects[Math.floor(Math.random() * pointObjects.length)];
+        // make sure to select one that is not already on screen
+        while (!ptObj.destroyed) {
+            ptObj = pointObjects[Math.floor(Math.random() * pointObjects.length)];
+        }
+
+        // select table from array of tables
+        let tbl = tables[Math.floor(Math.random() * tables.length)];
+        while (!tbl.destroyed) {
+            tbl = pointObjects[Math.floor(Math.random() * tables.length)];
+        }
+
+        // activate object and table
         ptObj.activate();
-        table.activate();
+        tbl.activate();
     }
 
 
@@ -199,48 +360,21 @@ class Play extends Phaser.Scene {
     update() {
         // make background move
         this.hallway.tilePositionX += game.settings.speed; // doesn't really do anything because background is still image
-        
-        // spawn obstacle on delay if flag is false
-        if (!this.makingObstacle && this.yarn.destroyed && this.feather.destroyed && this.catnip.destroyed) {
-            this.makingObstacle = true;
-            this.obsTimer = this.time.addEvent({
-                delay: Math.floor((Math.random() * 4) + 2) * 1000,
-                callback: this.makeObstacle,
-                loop: true
-            });
-        }
 
-        // spawn obstacle on delay if flag is false
-        if (this.table1.destroyed && this.table2.destroyed) {
-            let table;
-            if (Math.floor(Math.random() * 2)) {
-                table = this.table1;
-            }
-            else {
-                table = this.table2;
-            }
-            this.makingPoint = true;
-            this.ptTimer = this.time.addEvent({
-                delay: Math.floor((Math.random() * 7) + 3) * 1000,
-                callback: this.makePoint(table),
-                loop: true
-            });
-        }
+        this.obsTimer.delay = (Math.floor(Math.random() * 4) + 3) * 1000;
+
+        tables.forEach(element => {
+            element.update();
+        });
+        pointObjects.forEach(element => {
+            element.update();
+        });
+        obstacles.forEach(element => {
+            element.update();
+        });
 
 
-
-
-        // update all objects
-        this.table1.update();
-        this.table2.update();
-        this.feather.update();
-        this.yarn.update();
-        this.catnip.update();
-        this.emptyVase.update();
-        this.flowerVase.update();
-        this.lamp.update();
         this.picFrame1.update();
-        // this.table1.update();
 
 
         // collision code with yarn, feather, catnip
