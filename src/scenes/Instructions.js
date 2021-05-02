@@ -5,4 +5,12 @@
     constructor() {
         super("instrScene");
     }
+
+    preload() {
+        this.load.image('scene', 'assets/img/.png');
+    }
+
+    create() {
+        this.add.image()
+    }
  }
