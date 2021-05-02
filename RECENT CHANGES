@@ -25,3 +25,10 @@ Created obstacles, randomly are selected to move across the screen. For now,
 they are not on an interval, but as soon as one is destroyed the next one comes.
 Next, create valueObjects, change height for obstacles/valueObjects, keep track
 of score, create UI, add sounds, etc
+
+Oran
+5/1/21 5:08 pm
+I noticed there was almost no difference between the point objects and obstacles
+so I decided to make them from the same class. The only difference is what
+happens when the cat collides with them so I think we can handle that in Play.js
+

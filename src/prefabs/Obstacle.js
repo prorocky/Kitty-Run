@@ -21,7 +21,6 @@ class Obstacle extends Phaser.GameObjects.Sprite {
 
     activate() {
         this.destroyed = false;
-        // console.log("activated");
     }
 
     reset() {

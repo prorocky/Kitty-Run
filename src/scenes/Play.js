@@ -43,11 +43,13 @@ class Play extends Phaser.Scene {
 
         // code to make running cat
 
-        // spawn obstacles on random interval
+        // spawn obstacles randomly between 1-3 seconds
         this.makingObstacle = false;
         game.settings = {
             speed: 1.5
         }
+
+        // spawn value objects on random interval
 
         
 
@@ -102,12 +104,18 @@ class Play extends Phaser.Scene {
 
         obstacles = [this.catnip, this.feather, this.yarn];
 
-
+        // every 10 seconds increase speed of game until a cap of 5 is reached
+        this.sppedTimer = this.time.addEvent({
+            delay: 10 * 1000,
+            callback: this.increaseSpeed,
+            loop: true
+        });
 
 
 
     }
 
+    // create random object from array of obstacles
     makeObstacle() {
         // rng from 0-2 for the 3 potential obstacles
         let rng = Math.floor(Math.random() * 3);
@@ -115,6 +123,12 @@ class Play extends Phaser.Scene {
         obs.activate();
     }
 
+    // at some interval, increase speed (difficulty) of game
+    increaseSpeed() {
+        if (game.settings.speed < 5) {
+            game.settings.speed += .1;
+        }
+    }
 
 
     update() {
@@ -125,18 +139,28 @@ class Play extends Phaser.Scene {
         if (!this.makingObstacle && this.yarn.destroyed && this.feather.destroyed && this.catnip.destroyed) {
             this.makingObstacle = true;
             this.obsTimer = this.time.addEvent({
-                delay: Math.floor((Math.random() * 3) + 1) * 1000,
+                delay: Math.floor((Math.random() * 5) + 2) * 1000,
                 callback: this.makeObstacle,
                 loop: true
             });
         }
 
+        // update all objects
         this.table1.update();
         this.table2.update();
         this.feather.update();
         this.yarn.update();
         this.catnip.update();
         // this.table1.update();
+
+
+        // collision code with yarn, feather, catnip
+        // if (collision)
+        //      lives--
+
+        // if (lives == 0) {
+        //     game over
+        // }
         
     
     
