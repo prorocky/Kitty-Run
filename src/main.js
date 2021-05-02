@@ -10,8 +10,8 @@
 // config
 let config = {
     type: Phaser.CANVAS,
-    width: 640,
-    height: 480,
+    width: 1920,
+    height: 1080,
     scene: [Play, Menu, Instructions]
 }
 
@@ -26,4 +26,4 @@ let borderPadding = borderUISize / 3;
 let keySPACE;
 
 // variables needed for game
-let lives, score, obstacles;
+let lives, score, obstacles, pointObjects;
