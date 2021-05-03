@@ -42,6 +42,7 @@ class Play extends Phaser.Scene {
         this.load.audio('lose_life', '/assets/aud/Distressed_Meow.mp3');
         this.load.audio('game_over', '/assets/aud/LoseCondition1.wav');
         this.load.audio('game_over_music', '/assets/aud/game over song.mp3');
+        this.load.audio('jump','/assets/aud/CatJump.wav');
 
         // loading kitty run animation
         this.load.spritesheet('kitty_run', './assets//img/kitty_run02.png',{frameWidth: 95, frameHeight: 100, startFrame: 0, endFrame: 8});
@@ -407,6 +408,8 @@ class Play extends Phaser.Scene {
         // SPACE to jump 
         if(Phaser.Input.Keyboard.JustDown(keySPACE) && this.p1Kitty.y == game.config.height - 125){
             this.p1Kitty.jump();
+            this.sound.play('jump');
+            
         }
 
 
