@@ -56,13 +56,16 @@ class Play extends Phaser.Scene {
         // defining keys
         keySPACE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
         keyW = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
+
+        keyUP = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.UP);
+        keyDOWN = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.DOWN);
        
         // wall background
         this.hallway = this.add.tileSprite(0, 0, 1920, 1080, 'wall').setOrigin(0, 0);
 
         // play music
-        // this.song = this.sound.add('music', {volume: 0.5});
-        //this.song.play(); // this music kinda annoying so uncomment for now XD
+        this.song = this.sound.add('music', {volume: 0.5});
+        this.song.play(); // this music kinda annoying so uncomment for now XD
 
         // obstacle spawn flags
 
@@ -78,7 +81,7 @@ class Play extends Phaser.Scene {
 
         let scoreConfig = {
             ontFamily: 'Courier',
-            fontSize: '28px',
+            fontSize: '72px',
             backgroundColor: '',
             color: '#e75751',
             align: 'left',
@@ -88,6 +91,14 @@ class Play extends Phaser.Scene {
             },
             fixedWidth: 100
         }
+
+        // display lives
+        this.add.sprite(borderUISize, borderPadding, "lives");
+        this.displayLives = this.add.text(borderUISize + 10, borderPadding / 2, lives, scoreConfig)
+
+        // display score
+        this.add.sprite(game.config.width - borderUISize, borderPadding, "score");
+        this.displayScore = this.add.text(game.config.width - borderUISize + 10, borderPadding / 2, score, scoreConfig)
         
         // UI elements (Score, Time, Lives)
         // Lives at top left
@@ -429,7 +440,7 @@ class Play extends Phaser.Scene {
 
         // every 10 seconds increase speed of game until a cap of 5 is reached
         this.speedTimer = this.time.addEvent({
-            delay: 10 * 100,
+            delay: 10 * 1000,
             callback: this.increaseSpeed,
             loop: true
         });
@@ -578,19 +589,9 @@ class Play extends Phaser.Scene {
                 this.sound.play('jump');
                 
             }
-
-
-            // collision code with yarn, feather, catnip
-            // if (collision)
-            //      lives--
-
-            // if (lives == 0) {
-            //     game over
-            // }
-            
-            // collision code with lamp, empty vase, flower vase, picture frame
-            // if (collision)
-            //      score++
+            // update display for lives and score
+            this.displayLives.text = lives;
+            this.displayScore.text = score;
         }
     }
 
