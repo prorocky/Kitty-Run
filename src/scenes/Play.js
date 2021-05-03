@@ -547,11 +547,8 @@ class Play extends Phaser.Scene {
         if (lives < 1) {
             this.gameover = true;
             this.song.mute = true;
-<<<<<<< HEAD
             this.frt.paused = true;
-=======
             this.scene.start('endScene');
->>>>>>> db3a227bcb36e33860348d91110312f018582b50
             // this.sound.play('game_over'); // PLAY THIS ON NEXT SCENE
             // go to end screen scene
         }
@@ -586,6 +583,9 @@ class Play extends Phaser.Scene {
                     if (element.value) {
                         this.sound.play('lose_life');
                         this.humanAppear();
+                        this.clock = this.time.delayedCall(1250, () => {
+                            this.humanDisappear();
+                        }, null, this);
                     }
                     element.collide();
                 }
@@ -759,11 +759,10 @@ class Play extends Phaser.Scene {
     humanAppear() {
         console.log("human appear");
         this.human.alpha = 1;
-        setTimeout(this.humanDisappear, 500);
     }
 
     humanDisappear() {
         console.log("human disappear");
-        this.human.alpha = 1;
+        this.human.alpha = 0;
     }
 }
