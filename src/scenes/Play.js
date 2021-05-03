@@ -44,16 +44,19 @@ class Play extends Phaser.Scene {
         this.load.audio('game_over_music', '/assets/aud/game over song.mp3');
 
         // loading kitty run animation
-        this.load.spritesheet('kitty_run', './assets//img/kitty_run.png',{frameWidth: 100, frameHeight: 100, startFrame: 0, endFrame: 8});
+        this.load.spritesheet('kitty_run', './assets//img/kitty_run02.png',{frameWidth: 95, frameHeight: 100, startFrame: 0, endFrame: 8});
     }
 
     create() {
+        //defining SPACE
+        keySPACE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
+       
         // wall background
         console.log("Test");
         this.hallway = this.add.tileSprite(0, 0, 1920, 1080, 'wall').setOrigin(0, 0);
 
         // play music
-        // this.sound.play('music'); // this music kinda annoying so uncomment for now XD
+        //this.sound.play('music'); // this music kinda annoying so uncomment for now XD
 
         // kitty run animation config
         this.anims.create({
@@ -68,6 +71,8 @@ class Play extends Phaser.Scene {
         
         //starting run animation on kitty
         this.p1Kitty.play('run');
+        
+        
 
         // obstacle spawn flags
         this.makingObstacle = false;
@@ -389,6 +394,13 @@ class Play extends Phaser.Scene {
 
 
         this.picFrame1.update();
+
+        this.p1Kitty.update();
+        
+        //SPACE to jump 
+        if(Phaser.Input.Keyboard.JustDown(keySPACE) && this.p1Kitty.y == game.config.height - 125){
+            this.p1Kitty.jump();
+        }
 
 
         // collision code with yarn, feather, catnip
