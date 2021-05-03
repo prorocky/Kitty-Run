@@ -64,23 +64,33 @@ class Play extends Phaser.Scene {
         this.hallway = this.add.tileSprite(0, 0, 1920, 1080, 'wall').setOrigin(0, 0);
 
         // play music
-        this.song = this.sound.add('music', {volume: 0.5});
+        this.song = this.sound.add('music', {volume: 0.5, loop: true});
         this.song.play(); // this music kinda annoying so uncomment for now XD
 
-        // obstacle spawn flags
+        let popupConfig = {
+            fontFamily: 'Times New Roman',
+            fontSize: '64px',
+            backgroundColor: '',
+            color: '#000',
+            align: 'center',
+        }
+
+        // volume indicator
+        this.volumeIndicator = this.add.text(game.config.width / 20, borderPadding * 2, "Use (UP) and (DOWN) arrows to change volume of the music", popupConfig);
 
         game.settings = {
             speed: 4,
             spawnspeed: 2
         }
 
+        runningTime = 0;
         score = 0;
         lives = 9;
 
         this.gameover = false;
 
         let scoreConfig = {
-            ontFamily: 'Courier',
+            fontFamily: 'Courier',
             fontSize: '72px',
             backgroundColor: '',
             color: '#e75751',
@@ -502,6 +512,13 @@ class Play extends Phaser.Scene {
             paused: true
         });
 
+        // free running timer
+        this.frt = this.time.addEvent({
+            delay: 100,
+            callback: this.incrementTime,
+            loop: true
+        });
+
         // kitty run animation config
         this.anims.create({
             key:'run',
@@ -523,6 +540,12 @@ class Play extends Phaser.Scene {
     update() {
         if (lives < 1) {
             this.gameover = true;
+            this.song.mute = true;
+        }
+        if (runningTime < 100) {
+            this.volumeIndicator.alpha = 20 / runningTime;
+        } else {
+            this.volumeIndicator.destroy();
         }
         if (!this.gameover) {
             // make background move
@@ -589,10 +612,22 @@ class Play extends Phaser.Scene {
                 this.sound.play('jump');
                 
             }
+
+            // UP and DOWN to control volume of music
+            if (Phaser.Input.Keyboard.JustDown(keyUP) && this.song.volume < 1) {
+                this.song.volume += .1;
+            }
+            if (Phaser.Input.Keyboard.JustDown(keyDOWN) && this.song.volume > .1) {
+                this.song.volume -= .1;
+            }
             // update display for lives and score
             this.displayLives.text = lives;
             this.displayScore.text = score;
         }
+    }
+    incrementTime() {
+        runningTime++;
+        console.log(runningTime);
     }
 
     makeObsFlag() {
