@@ -2,11 +2,12 @@
  * Oran Shadian
  */
 class Obstacle extends Phaser.GameObjects.Sprite {
-    constructor(scene, x, y, texture, frame, addToArray) {
+    constructor(scene, x, y, texture, frame, value) {
         super(scene, x, y, texture, frame);
         scene.add.existing(this);
         this.destroyed = true;
-        this.add = addToArray;
+        this.value = value;
+        this.copyValue = this.value;
     }
 
     update() {
@@ -24,8 +25,13 @@ class Obstacle extends Phaser.GameObjects.Sprite {
         this.destroyed = false;
     }
 
+    collide() {
+        this.value = 0;
+    }
+
     reset() {
         this.x = game.config.width * 4 / 3;
         this.destroyed = true;
+        this.value = this.copyValue;
     }
 }

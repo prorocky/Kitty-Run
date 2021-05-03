@@ -71,6 +71,11 @@ class Play extends Phaser.Scene {
             spawnspeed: 2
         }
 
+        score = 0;
+        lives = 9;
+
+        this.gameover = false;
+
         let scoreConfig = {
             ontFamily: 'Courier',
             fontSize: '28px',
@@ -167,7 +172,7 @@ class Play extends Phaser.Scene {
             game.config.height * 19 / 22,
             'yarn',
             0,
-            1
+            -1
         ).setOrigin(0.5, 0);
 
         // yarn 2
@@ -177,7 +182,7 @@ class Play extends Phaser.Scene {
             game.config.height * 19 / 22,
             'yarn',
             0,
-            1
+            -1
         ).setOrigin(0.5, 0);
 
 
@@ -188,7 +193,7 @@ class Play extends Phaser.Scene {
             game.config.height * 19 / 22,
             'yarn',
             0,
-            1
+            -1
         ).setOrigin(0.5, 0);
 
         // feather 1
@@ -198,7 +203,7 @@ class Play extends Phaser.Scene {
             game.config.height * 19 / 22,
             'feather',
             0,
-            1
+            -1
         ).setOrigin(0.5, 0);
 
         // feather 2
@@ -208,7 +213,7 @@ class Play extends Phaser.Scene {
             game.config.height * 19 / 22,
             'feather',
             0,
-            1
+            -1
         ).setOrigin(0.5, 0);
 
 
@@ -219,7 +224,7 @@ class Play extends Phaser.Scene {
             game.config.height * 19 / 22,
             'feather',
             0,
-            1
+            -1
         ).setOrigin(0.5, 0);
 
         // catnip 1
@@ -229,7 +234,7 @@ class Play extends Phaser.Scene {
             game.config.height * 19 / 22,
             'catnip',
             0,
-            1
+            -1
         ).setOrigin(0.5, 0);
 
         // catnip 2
@@ -239,7 +244,7 @@ class Play extends Phaser.Scene {
             game.config.height * 19 / 22,
             'catnip',
             0,
-            1
+            -1
         ).setOrigin(0.5, 0);
 
 
@@ -250,10 +255,10 @@ class Play extends Phaser.Scene {
             game.config.height * 19 / 22,
             'catnip',
             0,
-            1
+            -1
         ).setOrigin(0.5, 0);
 
-        obstacles = [this.catnip1, this.catnip2, this.catnip3, this.feather1, this.feather2, this.feather3, this.yarn1, this.yarn2, this.yarn3, ]
+        obstacles = [this.catnip1, this.catnip2, this.catnip3, this.feather1, this.feather2, this.feather3, this.yarn1, this.yarn2, this.yarn3]
 
         // vase without flowers
         this.emptyVase1 = new Obstacle(
@@ -261,7 +266,8 @@ class Play extends Phaser.Scene {
             game.config.width * 4 / 3,
             this.tableTall1.y + 10,
             'vase',
-            0
+            0,
+            1
         ).setOrigin(0.5, 1);
 
         this.emptyVase2 = new Obstacle(
@@ -269,7 +275,8 @@ class Play extends Phaser.Scene {
             game.config.width * 4 / 3,
             this.tableTall1.y + 10,
             'vase',
-            0
+            0,
+            1
         ).setOrigin(0.5, 1);
 
         // vase with flowers
@@ -278,7 +285,8 @@ class Play extends Phaser.Scene {
             game.config.width * 4 / 3,
             this.tableTall1.y + 6,
             'flower_vase',
-            0
+            0,
+            1
         ).setOrigin(0.5, 1);
 
         this.flowerVase2 = new Obstacle(
@@ -286,7 +294,8 @@ class Play extends Phaser.Scene {
             game.config.width * 4 / 3,
             this.tableTall1.y + 6,
             'flower_vase',
-            0
+            0,
+            1
         ).setOrigin(0.5, 1);
 
         // lamp
@@ -295,7 +304,8 @@ class Play extends Phaser.Scene {
             game.config.width * 4 / 3,
             this.tableTall1.y + 6,
             'lamp',
-            0
+            0,
+            1
         ).setOrigin(0.5, 1);
 
         this.lamp2 = new Obstacle(
@@ -303,7 +313,8 @@ class Play extends Phaser.Scene {
             game.config.width * 4 / 3,
             this.tableTall1.y + 6,
             'lamp',
-            0
+            0,
+            1
         ).setOrigin(0.5, 1);
 
         pointObjects = [this.emptyVase1, this.emptyVase2, this.lamp1, this.lamp2, this.flowerVase1, this.flowerVase2];
@@ -314,7 +325,8 @@ class Play extends Phaser.Scene {
             game.config.width * 4 / 3,
             game.config.height * 1 / 3,
             'pic1',
-            0
+            0,
+            2
         ).setOrigin(0.5, 0.5);
 
         // picture frame2
@@ -323,7 +335,8 @@ class Play extends Phaser.Scene {
             game.config.width * 4 / 3,
             game.config.height * 1 / 3,
             'pic2',
-            0
+            0,
+            2
         ).setOrigin(0.5, 0.5);
 
         // picture frame3
@@ -332,7 +345,8 @@ class Play extends Phaser.Scene {
             game.config.width * 4 / 3,
             game.config.height * 1 / 3,
             'pic3',
-            0
+            0,
+            2
         ).setOrigin(0.5, 0.5);
 
         // picture frame4
@@ -341,7 +355,8 @@ class Play extends Phaser.Scene {
             game.config.width * 4 / 3,
             game.config.height * 1 / 3,
             'pic4',
-            0
+            0,
+            2
         ).setOrigin(0.5, 0.5);
 
         // picture frame5
@@ -350,7 +365,8 @@ class Play extends Phaser.Scene {
             game.config.width * 4 / 3,
             game.config.height * 1 / 3,
             'pic5',
-            0
+            0,
+            2
         ).setOrigin(0.5, 0.5);
 
         // picture frame6
@@ -359,7 +375,8 @@ class Play extends Phaser.Scene {
             game.config.width * 4 / 3,
             game.config.height * 1 / 3,
             'pic6',
-            0
+            0,
+            2
         ).setOrigin(0.5, 0.5);
 
         // picture frame7
@@ -368,7 +385,8 @@ class Play extends Phaser.Scene {
             game.config.width * 4 / 3,
             game.config.height * 1 / 3,
             'pic7',
-            0
+            0,
+            2
         ).setOrigin(0.5, 0.5);
 
         // picture frame8
@@ -377,7 +395,8 @@ class Play extends Phaser.Scene {
             game.config.width * 4 / 3,
             game.config.height * 1 / 3,
             'pic8',
-            0
+            0,
+            2
         ).setOrigin(0.5, 0.5);
 
         // picture frame9
@@ -386,7 +405,8 @@ class Play extends Phaser.Scene {
             game.config.width * 4 / 3,
             game.config.height * 1 / 3,
             'pic9',
-            0
+            0,
+            2
         ).setOrigin(0.5, 0.5);
 
         // picture frame10
@@ -395,7 +415,8 @@ class Play extends Phaser.Scene {
             game.config.width * 4 / 3,
             game.config.height * 1 / 3,
             'pic10',
-            0
+            0,
+            2
         ).setOrigin(0.5, 0.5);
 
         frames = [this.picFrame1, this.picFrame2, this.picFrame3, this.picFrame4, this.picFrame5, this.picFrame6, this.picFrame7, this.picFrame8, this.picFrame9, this.picFrame10];
@@ -479,13 +500,98 @@ class Play extends Phaser.Scene {
         });
 
         // creating player 1 Kitty instance
-        this.p1Kitty = new Kitty(this, game.config.width/10, game.config.height * 19 / 22, 'kitty_run').setOrigin(0,0);
+        this.p1Kitty = new Kitty(this, game.config.width/10, game.config.height * 19 / 22, 'kitty_run').setOrigin(0.5,0);
         
         //starting run animation on kitty
         this.p1Kitty.play('run');
         
         
 
+    }
+
+    update() {
+        if (lives < 1) {
+            this.gameover = true;
+        }
+        if (!this.gameover) {
+            // make background move
+            this.hallway.tilePositionX += game.settings.speed; // doesn't really do anything because background is still image
+
+            this.obsTimer.delay = (Math.floor(Math.random() * 4) + 3) * 1000;
+
+            tables.forEach(element => {
+                element.update();
+            });
+            pointObjects.forEach(element => {
+                element.update();
+                if (this.checkCollision(this.p1Kitty, element)) {
+                    score += element.value;
+                    if (element.value) {
+                        this.sound.play('glass');
+                    }
+                    element.collide();
+                }
+            });
+            obstacles.forEach(element => {
+                element.update();
+                if (this.checkCollision(this.p1Kitty, element)) {
+                    lives += element.value;
+                    if (element.value) {
+                        this.sound.play('lose_life');
+                    }
+                    element.collide();
+                }
+            });
+            frames.forEach(element => {
+                element.update();
+                if (this.checkCollision(this.p1Kitty, element)) {
+                    score += element.value;
+                    if (element.value) {
+                        this.sound.play('glass');
+                    }
+                    element.collide();
+                }
+            });
+
+            this.p1Kitty.update();
+
+            // create more points as game goes on
+            if (game.settings.speed > 6) {
+                this.ptTimer2.paused = false;
+            }
+
+            // create more obstacles as game goes on
+            if (game.settings.speed > 8) {
+                this.obsTimer2.paused = false;
+            }
+            
+            // SPACE to jump 
+            if(Phaser.Input.Keyboard.JustDown(keySPACE) && this.p1Kitty.y == game.config.height - 125){
+                this.p1Kitty.jump();
+                this.sound.play('jump');
+                
+            }
+
+            // W to small jump
+            if(Phaser.Input.Keyboard.JustDown(keyW) && this.p1Kitty.y == game.config.height - 125){
+                this.p1Kitty.smallJump();
+                this.sound.play('jump');
+                
+            }
+
+
+            // collision code with yarn, feather, catnip
+            // if (collision)
+            //      lives--
+
+            // if (lives == 0) {
+            //     game over
+            // }
+            
+            // collision code with lamp, empty vase, flower vase, picture frame
+            // if (collision)
+            //      score++
+        }
     }
 
     makeObsFlag() {
@@ -542,7 +648,6 @@ class Play extends Phaser.Scene {
 
     makePoint() {
         // console.log("Making point");
-        // let ptObj = pointObjects[indexCount++ % pointObjects.length];
         if (!makingPoint) {
             makingPoint = true;
             pointDelay.paused = false;
@@ -590,63 +695,14 @@ class Play extends Phaser.Scene {
     }
 
 
-    update() {
-        // make background move
-        this.hallway.tilePositionX += game.settings.speed; // doesn't really do anything because background is still image
-
-        this.obsTimer.delay = (Math.floor(Math.random() * 4) + 3) * 1000;
-
-        tables.forEach(element => {
-            element.update();
-        });
-        pointObjects.forEach(element => {
-            element.update();
-        });
-        obstacles.forEach(element => {
-            element.update();
-        });
-        frames.forEach(element => {
-            element.update();
-        });
-
-        this.p1Kitty.update();
-
-        // create more points as game goes on
-        if (game.settings.speed > 6) {
-            this.ptTimer2.paused = false;
-        }
-
-        // create more obstacles as game goes on
-        if (game.settings.speed > 8) {
-            this.obsTimer2.paused = false;
-        }
-        
-        // SPACE to jump 
-        if(Phaser.Input.Keyboard.JustDown(keySPACE) && this.p1Kitty.y == game.config.height - 125){
-            this.p1Kitty.jump();
-            this.sound.play('jump');
-            
-        }
-
-        // W to small jump
-        if(Phaser.Input.Keyboard.JustDown(keyW) && this.p1Kitty.y == game.config.height - 125){
-            this.p1Kitty.smallJump();
-            this.sound.play('jump');
-            
-        }
-
-
-        // collision code with yarn, feather, catnip
-        // if (collision)
-        //      lives--
-
-        // if (lives == 0) {
-        //     game over
-        // }
-        
-        // collision code with lamp, empty vase, flower vase, picture frame
-        // if (collision)
-        //      score++
     
+    checkCollision(kitty, obstacle) {
+        if (kitty.x < obstacle.x + obstacle.width &&
+        kitty.x + kitty.width > obstacle.x &&
+        kitty.y < obstacle.y + obstacle.height &&
+        kitty.y + kitty.height > obstacle.y) {
+            return true;
+        }
+        return false;
     }
 }
