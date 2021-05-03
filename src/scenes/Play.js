@@ -11,6 +11,7 @@ class Play extends Phaser.Scene {
         // UI
         this.load.image('lives', 'assets/img/kr_lives_red.png');
         this.load.image('score', 'assets/img/kr_score_red.png');
+        this.load.image('human', 'assets/img/story1.png');
 
         // general
         this.load.image('wall', 'assets/img/kittyrun_prop_wall.png');
@@ -67,6 +68,10 @@ class Play extends Phaser.Scene {
         this.song = this.sound.add('music', {volume: 0.5, loop: true});
         this.song.play(); // this music kinda annoying so uncomment for now XD
 
+        // human
+        this.human = this.add.sprite(game.config.width / 6 - 5, game.config.height / 2, "human");
+        this.human.alpha = 0;
+
         let popupConfig = {
             fontFamily: 'Times New Roman',
             fontSize: '64px',
@@ -104,7 +109,8 @@ class Play extends Phaser.Scene {
 
         // display lives
         this.add.sprite(borderUISize, borderPadding, "lives");
-        this.displayLives = this.add.text(borderUISize + 10, borderPadding / 2, lives, scoreConfig)
+        this.displayLives = this.add.text(borderUISize + 10, borderPadding / 2, lives, scoreConfig);
+
 
         // display score
         this.add.sprite(game.config.width - borderUISize, borderPadding, "score");
@@ -541,6 +547,7 @@ class Play extends Phaser.Scene {
         if (lives < 1) {
             this.gameover = true;
             this.song.mute = true;
+            this.frt.paused = true;
             // this.sound.play('game_over'); // PLAY THIS ON NEXT SCENE
             // go to end screen scene
         }
@@ -574,6 +581,7 @@ class Play extends Phaser.Scene {
                     lives += element.value;
                     if (element.value) {
                         this.sound.play('lose_life');
+                        this.humanAppear();
                     }
                     element.collide();
                 }
@@ -742,5 +750,16 @@ class Play extends Phaser.Scene {
             return true;
         }
         return false;
+    }
+
+    humanAppear() {
+        console.log("human appear");
+        this.human.alpha = 1;
+        setTimeout(this.humanDisappear, 500);
+    }
+
+    humanDisappear() {
+        console.log("human disappear");
+        this.human.alpha = 1;
     }
 }
