@@ -8,6 +8,7 @@
 
     preload() {
         this.load.image('scene', 'assets/img/menu_resize.png');
+        this.load.audio('meow', 'assets/aud/Button_Meow.mp3');
     }
 
     create() {
@@ -21,6 +22,7 @@
 
     update() {
         if (Phaser.Input.Keyboard.JustDown(keyP)) {
+            this.sound.play('meow');
             this.scene.start('playScene');
         }
     }
