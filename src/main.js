@@ -12,7 +12,7 @@ let config = {
     type: Phaser.CANVAS,
     width: 1920,
     height: 1080,
-    scene: [Menu, Play]
+    scene: [Menu, Play, End]
 }
 
 // game variable
