@@ -45,12 +45,13 @@ class Play extends Phaser.Scene {
         this.load.audio('jump','/assets/aud/CatJump.wav');
 
         // loading kitty run animation
-        this.load.spritesheet('kitty_run', './assets//img/kitty_run02.png',{frameWidth: 95, frameHeight: 100, startFrame: 0, endFrame: 8});
+        this.load.spritesheet('kitty_run', './assets//img/kitty_run02.png',{frameWidth: 90, frameHeight: 100, startFrame: 0, endFrame: 8});
     }
 
     create() {
-        //defining SPACE
+        // defining keys
         keySPACE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
+        keyW = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
        
         // wall background
         console.log("Test");
@@ -64,7 +65,8 @@ class Play extends Phaser.Scene {
         this.makingPoint = false;
 
         game.settings = {
-            speed: 4
+            speed: 4,
+            spawnspeed: -1
         }
         
 
@@ -276,21 +278,22 @@ class Play extends Phaser.Scene {
 
 
         // every 10 seconds increase speed of game until a cap of 5 is reached
+        this.spawnspeed = -1;
         this.speedTimer = this.time.addEvent({
             delay: 10 * 1000,
             callback: this.increaseSpeed,
             loop: true
         });
 
-        // every 5 seconds, attempt to make an obstacle
+        // every 4 seconds, attempt to make an obstacle
         this.obsTimer = this.time.addEvent({
-            delay: 4000,
+            delay: 2000,
             callback: this.callWithDelay,
-            args: [0, 10 - game.settings.speed, this.makeObstacle],
+            args: [1, game.settings.speed - game.settings.spawnspeed, this.makeObstacle],
             loop: true
         });
 
-        // every 7 seconds, attempt to make an point object
+        // every ~5 seconds, attempt to make a point object
         this.ptTimer = this.time.addEvent({
             delay: 5350,
             callback: this.callWithDelay,
@@ -337,12 +340,11 @@ class Play extends Phaser.Scene {
     makeObstacle() {
         console.log("Making obstacle");
         // select a random object from the array of objects
-        // let obs = obstacles[Math.floor(Math.random() * obstacles.length)];
         let obs = obstacles[indexCount++ % obstacles.length];
         // make sure to select one that is not already on screen (3 of each type exist)
-        // while (!obs.destroyed) {
-        //     obs = obstacles[Math.floor(Math.random() * obstacles.length)];
-        // }
+        while (!obs.destroyed) {
+            obs = obstacles[indexCount++ % obstacles.length];
+        }
 
         // activate obstacle
         obs.activate();
@@ -351,35 +353,28 @@ class Play extends Phaser.Scene {
     makePoint() {
         console.log("Making point");
         // select random point object from array of point objects
-        // let ptObj = pointObjects[Math.floor(Math.random() * pointObjects.length)];
         let ptObj = pointObjects[indexCount++ % pointObjects.length];
         // make sure to select one that is not already on screen
-        // while (!ptObj.destroyed) {
-        //     ptObj = pointObjects[Math.floor(Math.random() * pointObjects.length)];
-        // }
+        while (!ptObj.destroyed) {
+            ptObj = pointObjects[indexCount++ % pointObjects.length];
+        }
 
         // select table from array of tables if ptObj is not already activated
-        if (ptObj.destroyed) {
-            // let tbl = tables[Math.floor(Math.random() * tables.length)];
-            let tbl = tables[indexCount++ % tables.length];
-            while (!tbl.destroyed) {
-                // tbl = tables[Math.floor(Math.random() * tables.length)];
-                tbl = tables[indexCount++ % tables.length];
-            }
-            tbl.activate();
+        let tbl = tables[indexCount++ % tables.length];
+        while (!tbl.destroyed) {
+            tbl = tables[indexCount++ % tables.length];
         }
 
         // activate object
         ptObj.activate();
-       
+        tbl.activate();
     }
-
-
 
     // at some interval, increase speed (difficulty) of game
     increaseSpeed() {
         if (game.settings.speed < 10) {
             game.settings.speed += .5;
+            game.settings.spawnspeed += 1.5;
         }
     }
 
@@ -407,6 +402,13 @@ class Play extends Phaser.Scene {
         
         // SPACE to jump 
         if(Phaser.Input.Keyboard.JustDown(keySPACE) && this.p1Kitty.y == game.config.height - 125){
+            this.p1Kitty.jump();
+            this.sound.play('jump');
+            
+        }
+
+        // W to small jump
+        if(Phaser.Input.Keyboard.JustDown(keyW) && this.p1Kitty.y == game.config.height - 125){
             this.p1Kitty.smallJump();
             this.sound.play('jump');
             

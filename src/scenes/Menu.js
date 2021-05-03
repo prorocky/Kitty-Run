@@ -7,7 +7,7 @@
     }
 
     preload() {
-        this.load.image('scene', 'assets/img/Kitty_Getaway_Menu.png');
+        this.load.image('scene', 'assets/img/menu_resize.png');
     }
 
     create() {
@@ -16,7 +16,6 @@
 
         // key P to start
         keyP = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.P);
-
 
     }
 

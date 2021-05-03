@@ -23,7 +23,7 @@ let borderUISize = game.config.height / 15;
 let borderPadding = borderUISize / 3;
 
 // keyboard input
-let keySPACE, keyP;
+let keySPACE, keyP, keyW;
 
 // variables needed for game
 let lives, score, obstacles = [], pointObjects = [], tables = [], indexCount = 0;
