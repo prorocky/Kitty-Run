@@ -24,4 +24,8 @@ class Kitty extends Phaser.GameObjects.Sprite{
     jump(){ 
         this.velocity -= this.lift;
     }
+
+    smallJump() {
+        this.velocity -= this.lift * 4 / 5;
+    }
 }

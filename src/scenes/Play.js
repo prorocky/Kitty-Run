@@ -59,22 +59,6 @@ class Play extends Phaser.Scene {
         // play music
         //this.sound.play('music'); // this music kinda annoying so uncomment for now XD
 
-        // kitty run animation config
-        this.anims.create({
-            key:'run',
-            frames: this.anims.generateFrameNumbers('kitty_run',{start: 0, end: 8, first:0}),
-            frameRate: 15,
-            repeat: -1
-        });
-
-        // creating player 1 Kitty instance
-        this.p1Kitty = new Kitty(this, game.config.width/10, game.config.height - 125, 'kitty_run').setOrigin(0,0);
-        
-        //starting run animation on kitty
-        this.p1Kitty.play('run');
-        
-        
-
         // obstacle spawn flags
         this.makingObstacle = false;
         this.makingPoint = false;
@@ -154,7 +138,7 @@ class Play extends Phaser.Scene {
         this.yarn1 = new Obstacle(
             this, 
             game.config.width * 4 / 3,
-            game.config.height * 9 / 11,
+            game.config.height * 19 / 22,
             'yarn',
             0,
             1
@@ -164,7 +148,7 @@ class Play extends Phaser.Scene {
         this.yarn2 = new Obstacle(
             this, 
             game.config.width * 4 / 3,
-            game.config.height * 9 / 11,
+            game.config.height * 19 / 22,
             'yarn',
             0,
             1
@@ -175,7 +159,7 @@ class Play extends Phaser.Scene {
         this.yarn3 = new Obstacle(
             this, 
             game.config.width * 4 / 3,
-            game.config.height * 9 / 11,
+            game.config.height * 19 / 22,
             'yarn',
             0,
             1
@@ -185,7 +169,7 @@ class Play extends Phaser.Scene {
         this.feather1 = new Obstacle(
             this, 
             game.config.width * 4 / 3,
-            game.config.height * 9 / 11,
+            game.config.height * 19 / 22,
             'feather',
             0,
             1
@@ -195,7 +179,7 @@ class Play extends Phaser.Scene {
         this.feather2 = new Obstacle(
             this, 
             game.config.width * 4 / 3,
-            game.config.height * 9 / 11,
+            game.config.height * 19 / 22,
             'feather',
             0,
             1
@@ -206,7 +190,7 @@ class Play extends Phaser.Scene {
         this.feather3 = new Obstacle(
             this, 
             game.config.width * 4 / 3,
-            game.config.height * 9 / 11,
+            game.config.height * 19 / 22,
             'feather',
             0,
             1
@@ -216,7 +200,7 @@ class Play extends Phaser.Scene {
         this.catnip1 = new Obstacle(
             this,
             game.config.width * 4 / 3,
-            game.config.height * 9 / 11,
+            game.config.height * 19 / 22,
             'catnip',
             0,
             1
@@ -226,7 +210,7 @@ class Play extends Phaser.Scene {
         this.catnip2 = new Obstacle(
             this,
             game.config.width * 4 / 3,
-            game.config.height * 9 / 11,
+            game.config.height * 19 / 22,
             'catnip',
             0,
             1
@@ -237,7 +221,7 @@ class Play extends Phaser.Scene {
         this.catnip3 = new Obstacle(
             this,
             game.config.width * 4 / 3,
-            game.config.height * 9 / 11,
+            game.config.height * 19 / 22,
             'catnip',
             0,
             1
@@ -313,6 +297,22 @@ class Play extends Phaser.Scene {
             args: [0, 13 - game.settings.speed, this.makePoint],
             loop: true
         });
+
+        // kitty run animation config
+        this.anims.create({
+            key:'run',
+            frames: this.anims.generateFrameNumbers('kitty_run',{start: 0, end: 8, first:0}),
+            frameRate: 15,
+            repeat: -1
+        });
+
+        // creating player 1 Kitty instance
+        this.p1Kitty = new Kitty(this, game.config.width/10, game.config.height * 19 / 22, 'kitty_run').setOrigin(0,0);
+        
+        //starting run animation on kitty
+        this.p1Kitty.play('run');
+        
+        
 
     }
     // shuffle method from https://stackoverflow.com/questions/6274339/how-can-i-shuffle-an-array
@@ -407,7 +407,7 @@ class Play extends Phaser.Scene {
         
         // SPACE to jump 
         if(Phaser.Input.Keyboard.JustDown(keySPACE) && this.p1Kitty.y == game.config.height - 125){
-            this.p1Kitty.jump();
+            this.p1Kitty.smallJump();
             this.sound.play('jump');
             
         }
