@@ -65,12 +65,10 @@ class Play extends Phaser.Scene {
         //this.song.play(); // this music kinda annoying so uncomment for now XD
 
         // obstacle spawn flags
-        this.makingObstacle = false;
-        this.makingPoint = false;
 
         game.settings = {
             speed: 4,
-            spawnspeed: -1
+            spawnspeed: 2
         }
 
         let scoreConfig = {
@@ -86,6 +84,15 @@ class Play extends Phaser.Scene {
             fixedWidth: 100
         }
         
+        // UI elements (Score, Time, Lives)
+        // Lives at top left
+        this.scoreText = new Image(
+            this,
+            0,
+            0,
+            'score',
+            0
+        );
 
         // "destroyed" objects are invisible and "stored" to the left of the 
         // main play screen. When we want to reuse/reset them, we move their x
@@ -400,9 +407,8 @@ class Play extends Phaser.Scene {
 
 
         // every 10 seconds increase speed of game until a cap of 5 is reached
-        this.spawnspeed = -1;
         this.speedTimer = this.time.addEvent({
-            delay: 10 * 10,
+            delay: 10 * 100,
             callback: this.increaseSpeed,
             loop: true
         });
@@ -411,24 +417,57 @@ class Play extends Phaser.Scene {
         this.obsTimer = this.time.addEvent({
             delay: 2000,
             callback: this.callWithDelay,
-            args: [0, 2, this.makeObstacle],
+            args: [0, 1, this.makeObstacle],
             loop: true
+        });
+        // every 3.5 seconds, attempt to make an obstacle args: [0, 2 / (game.settings.speed / 2), this.makeObstacle],
+        this.obsTimer2 = this.time.addEvent({
+            delay: 3500,
+            callback: this.callWithDelay,
+            args: [0, 1, this.makeObstacle],
+            loop: true,
+            paused: true
         });
 
         // every 3.5 seconds, attempt to make a point object
         this.ptTimer = this.time.addEvent({
             delay: 3500,
             callback: this.callWithDelay,
-            args: [1, 2, this.makePoint],
+            args: [0, 2, this.makePoint],
             loop: true
+        });
+
+        // every 4 seconds, attempt to make a point object
+        this.ptTimer2 = this.time.addEvent({
+            delay: 4000,
+            callback: this.callWithDelay,
+            args: [0, 2, this.makePoint],
+            loop: true,
+            paused: true
         });
 
         // every 2 seconds, create a picture frame with a random picture
         this.picTimer = this.time.addEvent({
             delay: 2000,
             callback: this.callWithDelay,
-            args: [1, 2, this.makePicture],
+            args: [0, 1, this.makePicture],
             loop: true
+        });
+
+        // timer to count delay between making point objects
+        pointDelay = this.time.addEvent({
+            delay: 500,
+            callback: this.makePtsFlag,
+            loop: true,
+            paused: true
+        });
+
+        // timer to count delay between making obstacles
+        obsDelay = this.time.addEvent({
+            delay: 500,
+            callback: this.makeObsFlag,
+            loop: true,
+            paused: true
         });
 
         // kitty run animation config
@@ -448,6 +487,17 @@ class Play extends Phaser.Scene {
         
 
     }
+
+    makeObsFlag() {
+        makingObstacle = false;
+        obsDelay.paused = true;
+    }
+
+    makePtsFlag() {
+        makingPoint = false;
+        pointDelay.paused = true;
+    }
+
     // shuffle method from https://stackoverflow.com/questions/6274339/how-can-i-shuffle-an-array
     shuffle(a) {
         let j, x, i;
@@ -462,12 +512,12 @@ class Play extends Phaser.Scene {
 
     // Calls the function in parameter after an random delay between min and max seconds
     callWithDelay(min, max, func) {
-        setTimeout(func, (Math.floor(Math.random() * max) + min) * 1000);
+        setTimeout(func, (Math.floor(Math.random() * max / 4) + min) * 1000);
         if (game.settings.speed > 6) {
-            setTimeout(func, (Math.floor(Math.random() * max) + min) * 1000);
+            setTimeout(func, (Math.floor(Math.random() * max * 1 / 2) + min) * 1000);
         }
         if (game.settings.speed > 8) {
-            func;
+            setTimeout(func, (Math.floor(Math.random() * max * 3 / 4) + min) * 1000);
         }
 
     }
@@ -476,49 +526,60 @@ class Play extends Phaser.Scene {
     // create random object from array of obstacles
     makeObstacle() {
         // console.log("Making obstacle");
-        // select a random object from the array of objects
-        let obs = obstacles[indexCount++ % obstacles.length];
-        // make sure to select one that is not already on screen (3 of each type exist)
-        while (!obs.destroyed) {
-            obs = obstacles[indexCount++ % obstacles.length];
+        if (!makingObstacle) {
+            makingObstacle = true;
+            obsDelay.paused = false;
+            // select a random object from the array of objects
+            let obs = obstacles[indexCount++ % obstacles.length];
+            // make sure to select one that is not already on screen (3 of each type exist)
+            while (!obs.destroyed) {
+                obs = obstacles[indexCount++ % obstacles.length];
+            }      
+            // activate obstacle
+            obs.activate();
         }
-
-        // activate obstacle
-        obs.activate();
     }
 
     makePoint() {
         // console.log("Making point");
-        // select random point object from array of point objects
-        let ptObj = pointObjects[indexCount++ % pointObjects.length];
-        // make sure to select one that is not already on screen
-        while (!ptObj.destroyed) {
-            ptObj = pointObjects[indexCount++ % pointObjects.length];
-        }
+        // let ptObj = pointObjects[indexCount++ % pointObjects.length];
+        if (!makingPoint) {
+            makingPoint = true;
+            pointDelay.paused = false;
+            // select random point object from array of point objects
+            let ptObj = pointObjects[Math.floor(Math.random() * pointObjects.length)];
+            // make sure to select one that is not already on screen
+            while (!ptObj.destroyed) {
+                // ptObj = pointObjects[indexCount++ % pointObjects.length];
+                ptObj = pointObjects[Math.floor(Math.random() * pointObjects.length)];
+            }
 
-        // select table from array of tables if ptObj is not already activated
-        let tbl = tables[indexCount++ % tables.length];
-        while (!tbl.destroyed) {
-            tbl = tables[indexCount++ % tables.length];
-        }
+            // select table from array of tables if ptObj is not already activated
+            let tbl = tables[indexCount++ % tables.length];
+            while (!tbl.destroyed) {
+                tbl = tables[indexCount++ % tables.length];
+            }
 
-        // activate object
-        ptObj.activate();
-        tbl.activate();
+            // activate object
+            ptObj.activate();
+            tbl.activate();
+        }
     }
 
     makePicture() {
         // console.log("Making pic");
         // select random picframe from array
-        let picObj = frames[Math.floor(Math.random() * 10)];
+        let picObj = frames[Math.floor(Math.random() * frames.length)];
         // make sure to select one that is not already on screen
         while (!picObj.destroyed) {
-            picObj = frames[Math.floor(Math.random() * 10)];
+            picObj = frames[Math.floor(Math.random() * frames.length)];
         }
 
         // activate picObj
         picObj.activate();
     }
+
+    
 
     // at some interval, increase speed (difficulty) of game
     increaseSpeed() {
@@ -549,6 +610,16 @@ class Play extends Phaser.Scene {
         });
 
         this.p1Kitty.update();
+
+        // create more points as game goes on
+        if (game.settings.speed > 6) {
+            this.ptTimer2.paused = false;
+        }
+
+        // create more obstacles as game goes on
+        if (game.settings.speed > 8) {
+            this.obsTimer2.paused = false;
+        }
         
         // SPACE to jump 
         if(Phaser.Input.Keyboard.JustDown(keySPACE) && this.p1Kitty.y == game.config.height - 125){
