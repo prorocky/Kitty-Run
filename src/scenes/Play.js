@@ -8,6 +8,10 @@ class Play extends Phaser.Scene {
 
     preload() {
         /* load images */
+        // UI
+        this.load.image('lives', 'assets/img/kr_lives_red.png');
+        this.load.image('score', 'assets/img/kr_score_red.png');
+
         // general
         this.load.image('wall', 'assets/img/kittyrun_prop_wall.png');
         this.load.image('table1', 'assets/img/table_tall.png');
@@ -54,11 +58,11 @@ class Play extends Phaser.Scene {
         keyW = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
        
         // wall background
-        console.log("Test");
         this.hallway = this.add.tileSprite(0, 0, 1920, 1080, 'wall').setOrigin(0, 0);
 
         // play music
-        //this.sound.play('music'); // this music kinda annoying so uncomment for now XD
+        // this.song = this.sound.add('music', {volume: 0.5});
+        //this.song.play(); // this music kinda annoying so uncomment for now XD
 
         // obstacle spawn flags
         this.makingObstacle = false;
@@ -67,6 +71,19 @@ class Play extends Phaser.Scene {
         game.settings = {
             speed: 4,
             spawnspeed: -1
+        }
+
+        let scoreConfig = {
+            ontFamily: 'Courier',
+            fontSize: '28px',
+            backgroundColor: '',
+            color: '#e75751',
+            align: 'left',
+            padding: {
+                top: 5,
+                bottom: 5,
+            },
+            fixedWidth: 100
         }
         
 
@@ -232,7 +249,15 @@ class Play extends Phaser.Scene {
         obstacles = [this.catnip1, this.catnip2, this.catnip3, this.feather1, this.feather2, this.feather3, this.yarn1, this.yarn2, this.yarn3, ]
 
         // vase without flowers
-        this.emptyVase = new Obstacle(
+        this.emptyVase1 = new Obstacle(
+            this,
+            game.config.width * 4 / 3,
+            this.tableTall1.y + 10,
+            'vase',
+            0
+        ).setOrigin(0.5, 1);
+
+        this.emptyVase2 = new Obstacle(
             this,
             game.config.width * 4 / 3,
             this.tableTall1.y + 10,
@@ -241,7 +266,15 @@ class Play extends Phaser.Scene {
         ).setOrigin(0.5, 1);
 
         // vase with flowers
-        this.flowerVase = new Obstacle(
+        this.flowerVase1 = new Obstacle(
+            this,
+            game.config.width * 4 / 3,
+            this.tableTall1.y + 6,
+            'flower_vase',
+            0
+        ).setOrigin(0.5, 1);
+
+        this.flowerVase2 = new Obstacle(
             this,
             game.config.width * 4 / 3,
             this.tableTall1.y + 6,
@@ -250,14 +283,25 @@ class Play extends Phaser.Scene {
         ).setOrigin(0.5, 1);
 
         // lamp
-        this.lamp = new Obstacle(
+        this.lamp1 = new Obstacle(
             this,
             game.config.width * 4 / 3,
             this.tableTall1.y + 6,
             'lamp',
             0
-        ).setOrigin(0.5, 1);        
+        ).setOrigin(0.5, 1);
 
+        this.lamp2 = new Obstacle(
+            this,
+            game.config.width * 4 / 3,
+            this.tableTall1.y + 6,
+            'lamp',
+            0
+        ).setOrigin(0.5, 1);
+
+        pointObjects = [this.emptyVase1, this.emptyVase2, this.lamp1, this.lamp2, this.flowerVase1, this.flowerVase2];
+
+        // picture frame1
         this.picFrame1 = new Obstacle(
             this,
             game.config.width * 4 / 3,
@@ -266,13 +310,91 @@ class Play extends Phaser.Scene {
             0
         ).setOrigin(0.5, 0.5);
 
-        pointObjects = [this.emptyVase, this.lamp, this.flowerVase];
+        // picture frame2
+        this.picFrame2 = new Obstacle(
+            this,
+            game.config.width * 4 / 3,
+            game.config.height * 1 / 3,
+            'pic2',
+            0
+        ).setOrigin(0.5, 0.5);
 
-        this.picFrame1.activate();
+        // picture frame3
+        this.picFrame3 = new Obstacle(
+            this,
+            game.config.width * 4 / 3,
+            game.config.height * 1 / 3,
+            'pic3',
+            0
+        ).setOrigin(0.5, 0.5);
+
+        // picture frame4
+        this.picFrame4 = new Obstacle(
+            this,
+            game.config.width * 4 / 3,
+            game.config.height * 1 / 3,
+            'pic4',
+            0
+        ).setOrigin(0.5, 0.5);
+
+        // picture frame5
+        this.picFrame5 = new Obstacle(
+            this,
+            game.config.width * 4 / 3,
+            game.config.height * 1 / 3,
+            'pic5',
+            0
+        ).setOrigin(0.5, 0.5);
+
+        // picture frame6
+        this.picFrame6 = new Obstacle(
+            this,
+            game.config.width * 4 / 3,
+            game.config.height * 1 / 3,
+            'pic6',
+            0
+        ).setOrigin(0.5, 0.5);
+
+        // picture frame7
+        this.picFrame7 = new Obstacle(
+            this,
+            game.config.width * 4 / 3,
+            game.config.height * 1 / 3,
+            'pic7',
+            0
+        ).setOrigin(0.5, 0.5);
+
+        // picture frame8
+        this.picFrame8 = new Obstacle(
+            this,
+            game.config.width * 4 / 3,
+            game.config.height * 1 / 3,
+            'pic8',
+            0
+        ).setOrigin(0.5, 0.5);
+
+        // picture frame9
+        this.picFrame9 = new Obstacle(
+            this,
+            game.config.width * 4 / 3,
+            game.config.height * 1 / 3,
+            'pic9',
+            0
+        ).setOrigin(0.5, 0.5);
+
+        // picture frame10
+        this.picFrame10 = new Obstacle(
+            this,
+            game.config.width * 4 / 3,
+            game.config.height * 1 / 3,
+            'pic10',
+            0
+        ).setOrigin(0.5, 0.5);
+
+        frames = [this.picFrame1, this.picFrame2, this.picFrame3, this.picFrame4, this.picFrame5, this.picFrame6, this.picFrame7, this.picFrame8, this.picFrame9, this.picFrame10];
+
         this.shuffle(obstacles);
-        console.log(pointObjects);
         this.shuffle(pointObjects);
-        console.log(pointObjects);
         this.shuffle(tables);
 
 
@@ -280,24 +402,32 @@ class Play extends Phaser.Scene {
         // every 10 seconds increase speed of game until a cap of 5 is reached
         this.spawnspeed = -1;
         this.speedTimer = this.time.addEvent({
-            delay: 10 * 1000,
+            delay: 10 * 10,
             callback: this.increaseSpeed,
             loop: true
         });
 
-        // every 4 seconds, attempt to make an obstacle
+        // every 2 seconds, attempt to make an obstacle args: [0, 2 / (game.settings.speed / 2), this.makeObstacle],
         this.obsTimer = this.time.addEvent({
             delay: 2000,
             callback: this.callWithDelay,
-            args: [1, game.settings.speed - game.settings.spawnspeed, this.makeObstacle],
+            args: [0, 2, this.makeObstacle],
             loop: true
         });
 
-        // every ~5 seconds, attempt to make a point object
+        // every 3.5 seconds, attempt to make a point object
         this.ptTimer = this.time.addEvent({
-            delay: 5350,
+            delay: 3500,
             callback: this.callWithDelay,
-            args: [0, 13 - game.settings.speed, this.makePoint],
+            args: [1, 2, this.makePoint],
+            loop: true
+        });
+
+        // every 2 seconds, create a picture frame with a random picture
+        this.picTimer = this.time.addEvent({
+            delay: 2000,
+            callback: this.callWithDelay,
+            args: [1, 2, this.makePicture],
             loop: true
         });
 
@@ -333,12 +463,19 @@ class Play extends Phaser.Scene {
     // Calls the function in parameter after an random delay between min and max seconds
     callWithDelay(min, max, func) {
         setTimeout(func, (Math.floor(Math.random() * max) + min) * 1000);
+        if (game.settings.speed > 6) {
+            setTimeout(func, (Math.floor(Math.random() * max) + min) * 1000);
+        }
+        if (game.settings.speed > 8) {
+            func;
+        }
+
     }
 
     // make a timer that triggers every x seconds and calls a function that calls with a delay
     // create random object from array of obstacles
     makeObstacle() {
-        console.log("Making obstacle");
+        // console.log("Making obstacle");
         // select a random object from the array of objects
         let obs = obstacles[indexCount++ % obstacles.length];
         // make sure to select one that is not already on screen (3 of each type exist)
@@ -351,7 +488,7 @@ class Play extends Phaser.Scene {
     }
 
     makePoint() {
-        console.log("Making point");
+        // console.log("Making point");
         // select random point object from array of point objects
         let ptObj = pointObjects[indexCount++ % pointObjects.length];
         // make sure to select one that is not already on screen
@@ -368,6 +505,19 @@ class Play extends Phaser.Scene {
         // activate object
         ptObj.activate();
         tbl.activate();
+    }
+
+    makePicture() {
+        // console.log("Making pic");
+        // select random picframe from array
+        let picObj = frames[Math.floor(Math.random() * 10)];
+        // make sure to select one that is not already on screen
+        while (!picObj.destroyed) {
+            picObj = frames[Math.floor(Math.random() * 10)];
+        }
+
+        // activate picObj
+        picObj.activate();
     }
 
     // at some interval, increase speed (difficulty) of game
@@ -394,9 +544,9 @@ class Play extends Phaser.Scene {
         obstacles.forEach(element => {
             element.update();
         });
-
-
-        this.picFrame1.update();
+        frames.forEach(element => {
+            element.update();
+        });
 
         this.p1Kitty.update();
         
