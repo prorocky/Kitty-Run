@@ -46,6 +46,7 @@ class Play extends Phaser.Scene {
 
     create() {
         // wall background
+        console.log("Test");
         this.hallway = this.add.tileSprite(0, 0, 1920, 1080, 'wall').setOrigin(0, 0);
 
         // play music
@@ -221,9 +222,7 @@ class Play extends Phaser.Scene {
             1
         ).setOrigin(0.5, 0);
 
-        // obstacles = [this.catnip1, this.catnip2, this.catnip3, this.feather1, this.feather2, this.feather3, this.yarn1, this.yarn2, this.yarn3];
-        
-
+        obstacles = [this.catnip1, this.catnip2, this.catnip3, this.feather1, this.feather2, this.feather3, this.yarn1, this.yarn2, this.yarn3, ]
 
         // vase without flowers
         this.emptyVase = new Obstacle(
@@ -250,10 +249,7 @@ class Play extends Phaser.Scene {
             this.tableTall1.y + 6,
             'lamp',
             0
-        ).setOrigin(0.5, 1);
-
-        // pointObjects = [this.flowerVase, this.emptyVase, this.lamp];
-        
+        ).setOrigin(0.5, 1);        
 
         this.picFrame1 = new Obstacle(
             this,
@@ -262,6 +258,8 @@ class Play extends Phaser.Scene {
             'pic1',
             0
         ).setOrigin(0.5, 0.5);
+
+        pointObjects = [this.emptyVase, this.lamp, this.flowerVase];
 
         this.picFrame1.activate();
         this.shuffle(obstacles);
@@ -281,7 +279,7 @@ class Play extends Phaser.Scene {
 
         // every 5 seconds, attempt to make an obstacle
         this.obsTimer = this.time.addEvent({
-            delay: 5000,
+            delay: 3000,
             callback: this.callWithDelay,
             args: [2, 6 - game.settings.speed, this.makeObstacle],
             loop: true
@@ -289,7 +287,7 @@ class Play extends Phaser.Scene {
 
         // every 7 seconds, attempt to make an point object
         this.ptTimer = this.time.addEvent({
-            delay: 6000,
+            delay: 5500,
             callback: this.callWithDelay,
             args: [2, 10 - (3 / 2 * game.settings.speed), this.makePoint],
             loop: true
@@ -313,6 +311,7 @@ class Play extends Phaser.Scene {
         setTimeout(func, (Math.floor(Math.random() * max) + min) * 1000);
     }
 
+    // make a timer that triggers every x seconds and calls a function that calls with a delay
     // create random object from array of obstacles
     makeObstacle() {
         console.log("Making obstacle");

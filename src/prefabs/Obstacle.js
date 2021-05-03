@@ -7,11 +7,6 @@ class Obstacle extends Phaser.GameObjects.Sprite {
         scene.add.existing(this);
         this.destroyed = true;
         this.add = addToArray;
-        if (this.add) {
-            obstacles.push(this);
-        } else {
-            tables.push(this);
-        }
     }
 
     update() {
@@ -32,10 +27,5 @@ class Obstacle extends Phaser.GameObjects.Sprite {
     reset() {
         this.x = game.config.width * 4 / 3;
         this.destroyed = true;
-        if (this.add) {
-            obstacles.push(this);
-        } else {
-            tables.push(this);
-        }
     }
 }
