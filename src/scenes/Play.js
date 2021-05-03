@@ -541,6 +541,7 @@ class Play extends Phaser.Scene {
         if (lives < 1) {
             this.gameover = true;
             this.song.mute = true;
+            this.scene.start('endScene');
             // this.sound.play('game_over'); // PLAY THIS ON NEXT SCENE
             // go to end screen scene
         }
