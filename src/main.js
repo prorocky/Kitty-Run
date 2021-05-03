@@ -26,4 +26,4 @@ let borderPadding = borderUISize / 3;
 let keySPACE, keyP;
 
 // variables needed for game
-let lives, score, obstacles = [], pointObjects = [], tables = [];
+let lives, score, obstacles = [], pointObjects = [], tables = [], indexCount = 0;

@@ -4,8 +4,8 @@ class Kitty extends Phaser.GameObjects.Sprite{
         scene.add.existing(this);
         this.health = health;
 
-        this.gravity = 1;
-        this.lift = 35; 
+        this.gravity = .5;
+        this.lift = 27; 
         this.velocity = 0;
     }
 
