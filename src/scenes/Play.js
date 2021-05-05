@@ -536,6 +536,7 @@ class Play extends Phaser.Scene {
 
         // creating player 1 Kitty instance
         this.p1Kitty = new Kitty(this, game.config.width/10, game.config.height * 5 / 22, 'kitty_run').setOrigin(0.5,0);
+        console.log(this.p1Kitty.height);
         
         //starting run animation on kitty
         this.p1Kitty.play('run');
@@ -642,7 +643,8 @@ class Play extends Phaser.Scene {
     }
     incrementTime() {
         runningTime++;
-        console.log(runningTime);
+        // uncomment if you need to see run time
+        // console.log(runningTime);
     }
 
     makeObsFlag() {
