@@ -50,7 +50,8 @@ class Play extends Phaser.Scene {
         this.load.audio('jump','/assets/aud/CatJump.wav');
 
         // loading kitty run animation
-        this.load.spritesheet('kitty_run', './assets//img/kitty_run02.png',{frameWidth: 90, frameHeight: 100, startFrame: 0, endFrame: 8});
+        //this.load.spritesheet('kitty_run', './assets//img/kitty_run02.png',{frameWidth: 90, frameHeight: 100, startFrame: 0, endFrame: 8});
+        this.load.spritesheet('kitty_run', './assets//img/Kitty_Running_Sprite06.png',{frameWidth: 293, frameHeight: 225, startFrame: 0, endFrame: 7});
     }
 
     create() {
@@ -84,7 +85,7 @@ class Play extends Phaser.Scene {
         this.volumeIndicator = this.add.text(game.config.width / 20, borderPadding * 2, "Use (UP) and (DOWN) arrows to change volume of the music", popupConfig);
 
         game.settings = {
-            speed: 4,
+            speed: 5,
             spawnspeed: 2
         }
 
@@ -528,13 +529,13 @@ class Play extends Phaser.Scene {
         // kitty run animation config
         this.anims.create({
             key:'run',
-            frames: this.anims.generateFrameNumbers('kitty_run',{start: 0, end: 8, first:0}),
+            frames: this.anims.generateFrameNumbers('kitty_run',{start: 0, end: 7, first:0}),
             frameRate: 15,
             repeat: -1
         });
 
         // creating player 1 Kitty instance
-        this.p1Kitty = new Kitty(this, game.config.width/10, game.config.height * 19 / 22, 'kitty_run').setOrigin(0.5,0);
+        this.p1Kitty = new Kitty(this, game.config.width/10, game.config.height * 5 / 22, 'kitty_run').setOrigin(0.5,0);
         
         //starting run animation on kitty
         this.p1Kitty.play('run');
@@ -614,14 +615,14 @@ class Play extends Phaser.Scene {
             }
             
             // SPACE to jump 
-            if(Phaser.Input.Keyboard.JustDown(keySPACE) && this.p1Kitty.y == game.config.height - 125){
+            if(Phaser.Input.Keyboard.JustDown(keySPACE) && this.p1Kitty.y == game.config.height - 225){
                 this.p1Kitty.jump();
                 this.sound.play('jump');
                 
             }
 
             // W to small jump
-            if(Phaser.Input.Keyboard.JustDown(keyW) && this.p1Kitty.y == game.config.height - 125){
+            if(Phaser.Input.Keyboard.JustDown(keyW) && this.p1Kitty.y == game.config.height - 225){
                 this.p1Kitty.smallJump();
                 this.sound.play('jump');
                 
