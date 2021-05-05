@@ -8,14 +8,14 @@
 
     preload() {
         this.load.image('endScene', 'assets/img/EndScene.png');
-        this.load.audio('gameOver', 'assets/aud/game over song.mp3');
+        this.load.audio('gameOver', 'assets/aud/game_over_song.mp3');
     }
     create() {
         // add background image
         this.back = this.add.image(0, 0, 'endScene').setOrigin(0, 0);
 
-        // key P to restart
-        keyP = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.P);
+        // key R to restart
+        keyR = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R);
 
         //playing game over song
         this.song = this.sound.add('gameOver', {volume: 0.5, loop: true});
@@ -24,8 +24,9 @@
     }
 
     update() {
-        if (Phaser.Input.Keyboard.JustDown(keyP)) {
+        if (Phaser.Input.Keyboard.JustDown(keyR)) {
             this.sound.play('meow');
+            this.song.mute = true;
             this.scene.start('playScene');
         }
     }

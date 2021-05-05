@@ -26,8 +26,13 @@ class Play extends Phaser.Scene {
         // good obstacles (+1 point)
         this.load.image('lamp', 'assets/img/value_lamp.png');
         this.load.image('vase', 'assets/img/value_vase_empty.png');
-        this.load.image('flower_vase', 'assets/img/value_vase_flower.png');
+        this.load.image('flower_vase', 'assets/img/value_vase_flowers.png');
+        this.load.image('b_lamp', 'assets/img/broken_lamp.png');
+        this.load.image('b_vase', 'assets/img/broken_vase.png');
+        this.load.image('b_flower_vase', 'assets/img/broken_flowers.png');
+
         // list of all different possible pictures
+        this.load.image('b_frame', 'assets/img/broken_frame.png');
         this.load.image('pic1', 'assets/img/p1.png');
         this.load.image('pic2', 'assets/img/p2.png');
         this.load.image('pic3', 'assets/img/p3.png');
@@ -41,7 +46,7 @@ class Play extends Phaser.Scene {
 
 
         /* load audio */
-        this.load.audio('music', 'assets/aud/background_song.mp3');
+        this.load.audio('music', 'assets/aud/kittyrun_song.wav');
         this.load.audio('land', 'assets/aud/cat_landing.wav');
         this.load.audio('glass', 'assets/aud/glass_break.wav');
         this.load.audio('lose_life', 'assets/aud/Distressed_Meow.mp3');
@@ -197,63 +202,63 @@ class Play extends Phaser.Scene {
         this.yarn1 = new Obstacle(
             this, 
             game.config.width * 4 / 3,
-            game.config.height * 19 / 22,
+            game.config.height * 20 / 22,
             'yarn',
             0,
             -1
-        ).setOrigin(0.5, 0);
+        ).setOrigin(0, 0);
 
         // yarn 2
         this.yarn2 = new Obstacle(
             this, 
             game.config.width * 4 / 3,
-            game.config.height * 19 / 22,
+            game.config.height * 20 / 22,
             'yarn',
             0,
             -1
-        ).setOrigin(0.5, 0);
+        ).setOrigin(0, 0);
 
 
         // yarn 3
         this.yarn3 = new Obstacle(
             this, 
             game.config.width * 4 / 3,
-            game.config.height * 19 / 22,
+            game.config.height * 20 / 22,
             'yarn',
             0,
             -1
-        ).setOrigin(0.5, 0);
+        ).setOrigin(0, 0);
 
         // feather 1
         this.feather1 = new Obstacle(
             this, 
             game.config.width * 4 / 3,
-            game.config.height * 19 / 22,
+            game.config.height * 20 / 22,
             'feather',
             0,
             -1
-        ).setOrigin(0.5, 0);
+        ).setOrigin(0, 0);
 
         // feather 2
         this.feather2 = new Obstacle(
             this, 
             game.config.width * 4 / 3,
-            game.config.height * 19 / 22,
+            game.config.height * 20 / 22,
             'feather',
             0,
             -1
-        ).setOrigin(0.5, 0);
+        ).setOrigin(0, 0);
 
 
         // feather 3
         this.feather3 = new Obstacle(
             this, 
             game.config.width * 4 / 3,
-            game.config.height * 19 / 22,
+            game.config.height * 20 / 22,
             'feather',
             0,
             -1
-        ).setOrigin(0.5, 0);
+        ).setOrigin(0, 0);
 
         // catnip 1
         this.catnip1 = new Obstacle(
@@ -263,7 +268,7 @@ class Play extends Phaser.Scene {
             'catnip',
             0,
             -1
-        ).setOrigin(0.5, 0);
+        ).setOrigin(0, 0);
 
         // catnip 2
         this.catnip2 = new Obstacle(
@@ -273,7 +278,7 @@ class Play extends Phaser.Scene {
             'catnip',
             0,
             -1
-        ).setOrigin(0.5, 0);
+        ).setOrigin(0, 0);
 
 
         // catnip 3
@@ -284,7 +289,7 @@ class Play extends Phaser.Scene {
             'catnip',
             0,
             -1
-        ).setOrigin(0.5, 0);
+        ).setOrigin(0, 0);
 
         obstacles = [this.catnip1, this.catnip2, this.catnip3, this.feather1, this.feather2, this.feather3, this.yarn1, this.yarn2, this.yarn3]
 
@@ -351,7 +356,7 @@ class Play extends Phaser.Scene {
         this.picFrame1 = new Obstacle(
             this,
             game.config.width * 4 / 3,
-            game.config.height * 1 / 3,
+            game.config.height * 1 / 4,
             'pic1',
             0,
             2
@@ -361,7 +366,7 @@ class Play extends Phaser.Scene {
         this.picFrame2 = new Obstacle(
             this,
             game.config.width * 4 / 3,
-            game.config.height * 1 / 3,
+            game.config.height * 1 / 4,
             'pic2',
             0,
             2
@@ -371,7 +376,7 @@ class Play extends Phaser.Scene {
         this.picFrame3 = new Obstacle(
             this,
             game.config.width * 4 / 3,
-            game.config.height * 1 / 3,
+            game.config.height * 1 / 4,
             'pic3',
             0,
             2
@@ -381,7 +386,7 @@ class Play extends Phaser.Scene {
         this.picFrame4 = new Obstacle(
             this,
             game.config.width * 4 / 3,
-            game.config.height * 1 / 3,
+            game.config.height * 1 / 4,
             'pic4',
             0,
             2
@@ -391,7 +396,7 @@ class Play extends Phaser.Scene {
         this.picFrame5 = new Obstacle(
             this,
             game.config.width * 4 / 3,
-            game.config.height * 1 / 3,
+            game.config.height * 1 / 4,
             'pic5',
             0,
             2
@@ -401,7 +406,7 @@ class Play extends Phaser.Scene {
         this.picFrame6 = new Obstacle(
             this,
             game.config.width * 4 / 3,
-            game.config.height * 1 / 3,
+            game.config.height * 1 / 4,
             'pic6',
             0,
             2
@@ -411,7 +416,7 @@ class Play extends Phaser.Scene {
         this.picFrame7 = new Obstacle(
             this,
             game.config.width * 4 / 3,
-            game.config.height * 1 / 3,
+            game.config.height * 1 / 4,
             'pic7',
             0,
             2
@@ -421,7 +426,7 @@ class Play extends Phaser.Scene {
         this.picFrame8 = new Obstacle(
             this,
             game.config.width * 4 / 3,
-            game.config.height * 1 / 3,
+            game.config.height * 1 / 4,
             'pic8',
             0,
             2
@@ -431,7 +436,7 @@ class Play extends Phaser.Scene {
         this.picFrame9 = new Obstacle(
             this,
             game.config.width * 4 / 3,
-            game.config.height * 1 / 3,
+            game.config.height * 1 / 4,
             'pic9',
             0,
             2
@@ -441,7 +446,7 @@ class Play extends Phaser.Scene {
         this.picFrame10 = new Obstacle(
             this,
             game.config.width * 4 / 3,
-            game.config.height * 1 / 3,
+            game.config.height * 1 / 4,
             'pic10',
             0,
             2
@@ -535,14 +540,25 @@ class Play extends Phaser.Scene {
         });
 
         // creating player 1 Kitty instance
-        this.p1Kitty = new Kitty(this, game.config.width/10, game.config.height * 5 / 22, 'kitty_run').setOrigin(0.5,0);
-        console.log(this.p1Kitty.height);
+        this.p1Kitty = new Kitty(this, game.config.width/10, game.config.height * 5 / 22, 'kitty_run').setOrigin(0, 0);
+        
+        
+        // console.log(this.p1Kitty.width);
         
         //starting run animation on kitty
         this.p1Kitty.play('run');
-        
-        
 
+        // DEBUGGING STUFF
+        this.physics.add.existing(this.p1Kitty);
+        frames.forEach(element => {
+            this.physics.add.existing(element);
+        });
+        pointObjects.forEach(element => {
+            this.physics.add.existing(element);
+        });
+        obstacles.forEach(element => {
+            this.physics.add.existing(element);
+        });
     }
 
     update() {
@@ -574,6 +590,18 @@ class Play extends Phaser.Scene {
                     score += element.value;
                     if (element.value) {
                         this.sound.play('glass');
+                        switch(element.texture.key) {
+                            case 'vase':
+                                element.setTexture('b_vase');
+                                break;
+                            case 'flower_vase':
+                                element.setTexture('b_flower_vase');
+                                break;
+                            case 'lamp':
+                                element.setTexture('b_lamp');
+                                break;
+                        }
+                        // if (element.texture.key = 'vase')'flower_vase'
                     }
                     element.collide();
                 }
@@ -598,6 +626,7 @@ class Play extends Phaser.Scene {
                     score += element.value;
                     if (element.value) {
                         this.sound.play('glass');
+                        element.setTexture('b_frame');
                     }
                     element.collide();
                 }
@@ -691,7 +720,7 @@ class Play extends Phaser.Scene {
             // select a random object from the array of objects
             let obs = obstacles[indexCount++ % obstacles.length];
             // make sure to select one that is not already on screen (3 of each type exist)
-            while (!obs.destroyed) {
+            while (!obs.hidden) {
                 obs = obstacles[indexCount++ % obstacles.length];
             }      
             // activate obstacle
@@ -707,14 +736,14 @@ class Play extends Phaser.Scene {
             // select random point object from array of point objects
             let ptObj = pointObjects[Math.floor(Math.random() * pointObjects.length)];
             // make sure to select one that is not already on screen
-            while (!ptObj.destroyed) {
+            while (!ptObj.hidden) {
                 // ptObj = pointObjects[indexCount++ % pointObjects.length];
                 ptObj = pointObjects[Math.floor(Math.random() * pointObjects.length)];
             }
 
             // select table from array of tables if ptObj is not already activated
             let tbl = tables[indexCount++ % tables.length];
-            while (!tbl.destroyed) {
+            while (!tbl.hidden) {
                 tbl = tables[indexCount++ % tables.length];
             }
 
@@ -729,7 +758,7 @@ class Play extends Phaser.Scene {
         // select random picframe from array
         let picObj = frames[Math.floor(Math.random() * frames.length)];
         // make sure to select one that is not already on screen
-        while (!picObj.destroyed) {
+        while (!picObj.hidden) {
             picObj = frames[Math.floor(Math.random() * frames.length)];
         }
 
@@ -750,22 +779,23 @@ class Play extends Phaser.Scene {
 
     
     checkCollision(kitty, obstacle) {
-        if (kitty.x < obstacle.x + obstacle.width &&
-        kitty.x + kitty.width > obstacle.x &&
-        kitty.y < obstacle.y + obstacle.height &&
-        kitty.y + kitty.height > obstacle.y) {
-            return true;
-        }
-        return false;
+        // if (kitty.x < obstacle.x + obstacle.width &&
+        // kitty.x + kitty.width > obstacle.x &&
+        // kitty.y < obstacle.y + obstacle.height &&
+        // kitty.y + kitty.height > obstacle.y) {
+        //     return true;
+        // }
+        // return false;
+        return this.physics.overlap(kitty, obstacle);
     }
 
     humanAppear() {
-        console.log("human appear");
+        // console.log("human appear");
         this.human.alpha = 1;
     }
 
     humanDisappear() {
-        console.log("human disappear");
+        // console.log("human disappear");
         this.human.alpha = 0;
     }
 }

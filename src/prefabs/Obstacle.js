@@ -5,13 +5,15 @@ class Obstacle extends Phaser.GameObjects.Sprite {
     constructor(scene, x, y, texture, frame, value) {
         super(scene, x, y, texture, frame);
         scene.add.existing(this);
-        this.destroyed = true;
+        this.hidden = true;
         this.value = value;
         this.copyValue = this.value;
+        this.destroyed = false;
+        this.copyTexture = texture;
     }
 
     update() {
-        if (!this.destroyed) {
+        if (!this.hidden) {
             this.x -= game.settings.speed;
         }
         
@@ -22,16 +24,19 @@ class Obstacle extends Phaser.GameObjects.Sprite {
     }
 
     activate() {
-        this.destroyed = false;
+        this.hidden = false;
     }
 
     collide() {
         this.value = 0;
+        this.destroyed = true;
     }
 
     reset() {
         this.x = game.config.width * 4 / 3;
-        this.destroyed = true;
+        this.hidden = true;
         this.value = this.copyValue;
+        this.destroyed = false;
+        this.setTexture(this.copyTexture);
     }
 }
