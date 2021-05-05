@@ -66,7 +66,7 @@ class Play extends Phaser.Scene {
 
         // play music
         this.song = this.sound.add('music', {volume: 0.5, loop: true});
-        this.song.play(); // this music kinda annoying so uncomment for now XD
+        this.song.play();
 
         // human
         this.human = this.add.sprite(game.config.width / 6 - 5, game.config.height / 2, "human");
