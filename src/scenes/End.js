@@ -17,6 +17,9 @@
         // key R to restart
         keyR = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R);
 
+        // key Q to quit/see credits
+        keyQ = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Q);
+
         //playing game over song
         this.song = this.sound.add('gameOver', {volume: 0.5, loop: true});
         this.song.play(); 
@@ -28,6 +31,11 @@
             this.sound.play('meow');
             this.song.mute = true;
             this.scene.start('playScene');
+        }
+        if (Phaser.Input.Keyboard.JustDown(keyQ)) {
+            this.sound.play('meow');
+            this.song.mute = true;
+            this.scene.start('creditScene');
         }
     }
  }

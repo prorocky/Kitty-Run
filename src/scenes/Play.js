@@ -17,7 +17,7 @@ class Play extends Phaser.Scene {
         this.load.image('wall', 'assets/img/kittyrun_prop_wall.png');
         this.load.image('table1', 'assets/img/table_tall.png');
         this.load.image('table2', 'assets/img/table_wide.png');
-        this.load.image('easter_egg', 'assets/img/to_the_moon.png')
+        this.load.image('easter_egg', 'assets/img/rocket.png')
 
         // bad obstacles (lose life)
         this.load.image('catnip', 'assets/img/obstacle_catnip.png');
@@ -136,6 +136,7 @@ class Play extends Phaser.Scene {
         // Easter Egg
         this.ee = this.add.sprite(game.config.width / 2, game.config.height / 2, "easter_egg");
         this.ee.alpha = 0;
+        this.to_the_moon = false;
 
 
         // "hideden" objects are invisible and "stored" to the left of the 
@@ -562,9 +563,6 @@ class Play extends Phaser.Scene {
             this.physics.add.existing(element);
         });
 
-        // comment to see hitboxes
-        // game.config.phsyics.arcade.debug = false;
-
     }
 
     update() {
@@ -575,11 +573,16 @@ class Play extends Phaser.Scene {
             this.scene.start('endScene');
             // go to end screen scene
         }
-        // console.log(this.p1Kitty.y);
+        // easter egg stuff, add life
         if (this.p1Kitty.y < 0) {
+            if (!this.to_the_moon) {
+                lives++;
+            }
+            this.to_the_moon = true;
             this.ee.alpha = 1;
         } else {
             this.ee.alpha = 0;
+            this.to_the_moon = false;
         }
         if (runningTime < 100) {
             this.volumeIndicator.alpha = 20 / runningTime;

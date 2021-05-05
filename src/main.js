@@ -16,7 +16,7 @@
  * the two numbers that were sent. Another interesting feature is how the objects change to their shattered form then
  * get restored when they appear again, Oran accomplished this by storing a copy of the texture when the object is constructed
  * and when the reset function for the object is called, it restores the original texture. (Oran: looking back, I would have done things a little diffrently,
- * but I made it work with the knowledge I had). 
+ * but I made it work with the knowledge I had). There's also an easter egg where if you can jump high enough you get an extra life along with a fun meme
  * 
  */
 
@@ -25,7 +25,7 @@ let config = {
     type: Phaser.CANVAS,
     width: 1920,
     height: 1080,
-    scene: [Menu, Play, End],
+    scene: [Menu, Play, End, Credits],
     physics: {
         default: 'arcade',
         arcade: {
@@ -43,7 +43,7 @@ let borderUISize = game.config.height / 5;
 let borderPadding = borderUISize / 3;
 
 // keyboard input
-let keySPACE, keyP, keyW, keyR, keyUP, keyDOWN;
+let keySPACE, keyP, keyW, keyR, keyQ, keyESC, keyUP, keyDOWN;
 
 // variables needed for game
 let lives = 9, score = 0, obstacles = [], pointObjects = [], tables = [], frames = [], indexCount = 0, makingObstacle = false, makingPoint = false, obsDelay, pointDelay, runningTime;
