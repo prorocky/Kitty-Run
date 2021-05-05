@@ -4,7 +4,7 @@
  * Gabriella Flores, Makkenzie Zepeda, Oran Shadian, Diego Agurto (GMOD)
  * 
  * Submitted: Sunday May 2 11:56 pm
- * Finished: Tuesday May 4 ~6 pm
+ * Finished: Tuesday May 5 3:52 pm (Finishing touches/polish)
  * 
  * Our design team, Gabriella Flores and Makkenzie Zepeda, formalized the game's style by doing outside studies of the cult classic cartoon, Tom and Jerry. 
  * The creative influence is notable in the simplistic lineart and color palette used throughout the props, main characters, and backdrops. 
