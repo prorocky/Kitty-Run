@@ -13,6 +13,9 @@
  * and when the reset function for the object is called, it restores the original texture. (Oran: looking back, I would have done things a little diffrently,
  * but I made it work with the knowledge I had). 
  * 
+ * Submitted: Sunday May 2 11:56 pm
+ * Finished: Tuesday May 4 ~6 pm
+ * 
  */
 
 // config
