@@ -13,8 +13,9 @@ class Kitty extends Phaser.GameObjects.Sprite{
         this.velocity += this.gravity;
         this.y += this.velocity;
         
-        if(this.y > game.config.height - 125){
-            this.y = game.config.height - 125;
+        //game floor border
+        if(this.y > game.config.height - 225){
+            this.y = game.config.height - 225;
             this.velocity = 0;
         }
 
