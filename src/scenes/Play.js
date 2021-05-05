@@ -17,6 +17,7 @@ class Play extends Phaser.Scene {
         this.load.image('wall', 'assets/img/kittyrun_prop_wall.png');
         this.load.image('table1', 'assets/img/table_tall.png');
         this.load.image('table2', 'assets/img/table_wide.png');
+        this.load.image('easter_egg', 'assets/img/to_the_moon.png')
 
         // bad obstacles (lose life)
         this.load.image('catnip', 'assets/img/obstacle_catnip.png');
@@ -132,7 +133,12 @@ class Play extends Phaser.Scene {
             0
         );
 
-        // "destroyed" objects are invisible and "stored" to the left of the 
+        // Easter Egg
+        this.ee = this.add.sprite(game.config.width / 2, game.config.height / 2, "easter_egg");
+        this.ee.alpha = 0;
+
+
+        // "hideden" objects are invisible and "stored" to the left of the 
         // main play screen. When we want to reuse/reset them, we move their x
         // to the very right and then change the destroyed flag
 
@@ -202,7 +208,7 @@ class Play extends Phaser.Scene {
         this.yarn1 = new Obstacle(
             this, 
             game.config.width * 4 / 3,
-            game.config.height * 20 / 22,
+            game.config.height * 19.5 / 22,
             'yarn',
             0,
             -1
@@ -212,7 +218,7 @@ class Play extends Phaser.Scene {
         this.yarn2 = new Obstacle(
             this, 
             game.config.width * 4 / 3,
-            game.config.height * 20 / 22,
+            game.config.height * 19.5 / 22,
             'yarn',
             0,
             -1
@@ -223,7 +229,7 @@ class Play extends Phaser.Scene {
         this.yarn3 = new Obstacle(
             this, 
             game.config.width * 4 / 3,
-            game.config.height * 20 / 22,
+            game.config.height * 19.5 / 22,
             'yarn',
             0,
             -1
@@ -541,15 +547,11 @@ class Play extends Phaser.Scene {
 
         // creating player 1 Kitty instance
         this.p1Kitty = new Kitty(this, game.config.width/10, game.config.height * 5 / 22, 'kitty_run').setOrigin(0, 0);
-        
-        
-        // console.log(this.p1Kitty.width);
+        this.physics.add.existing(this.p1Kitty);
         
         //starting run animation on kitty
         this.p1Kitty.play('run');
 
-        // DEBUGGING STUFF
-        this.physics.add.existing(this.p1Kitty);
         frames.forEach(element => {
             this.physics.add.existing(element);
         });
@@ -559,6 +561,10 @@ class Play extends Phaser.Scene {
         obstacles.forEach(element => {
             this.physics.add.existing(element);
         });
+
+        // comment to see hitboxes
+        // game.config.phsyics.arcade.debug = false;
+
     }
 
     update() {
@@ -567,8 +573,13 @@ class Play extends Phaser.Scene {
             this.song.mute = true;
             this.frt.paused = true;
             this.scene.start('endScene');
-            // this.sound.play('game_over'); // PLAY THIS ON NEXT SCENE
             // go to end screen scene
+        }
+        // console.log(this.p1Kitty.y);
+        if (this.p1Kitty.y < 0) {
+            this.ee.alpha = 1;
+        } else {
+            this.ee.alpha = 0;
         }
         if (runningTime < 100) {
             this.volumeIndicator.alpha = 20 / runningTime;
@@ -737,7 +748,6 @@ class Play extends Phaser.Scene {
             let ptObj = pointObjects[Math.floor(Math.random() * pointObjects.length)];
             // make sure to select one that is not already on screen
             while (!ptObj.hidden) {
-                // ptObj = pointObjects[indexCount++ % pointObjects.length];
                 ptObj = pointObjects[Math.floor(Math.random() * pointObjects.length)];
             }
 
@@ -779,13 +789,6 @@ class Play extends Phaser.Scene {
 
     
     checkCollision(kitty, obstacle) {
-        // if (kitty.x < obstacle.x + obstacle.width &&
-        // kitty.x + kitty.width > obstacle.x &&
-        // kitty.y < obstacle.y + obstacle.height &&
-        // kitty.y + kitty.height > obstacle.y) {
-        //     return true;
-        // }
-        // return false;
         return this.physics.overlap(kitty, obstacle);
     }
 

@@ -7,7 +7,7 @@
     }
 
     preload() {
-        this.load.image('endScene', 'assets/img/EndScene.png');
+        this.load.image('endScene', 'assets/img/endcard.png');
         this.load.audio('gameOver', 'assets/aud/game_over_song.mp3');
     }
     create() {
