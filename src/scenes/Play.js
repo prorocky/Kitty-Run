@@ -41,13 +41,13 @@ class Play extends Phaser.Scene {
 
 
         /* load audio */
-        this.load.audio('music', '/assets/aud/background song.mp3');
-        this.load.audio('land', '/assets/aud/cat landing.wav');
-        this.load.audio('glass', '/assets/aud/glass break.wav');
-        this.load.audio('lose_life', '/assets/aud/Distressed_Meow.mp3');
-        this.load.audio('game_over', '/assets/aud/LoseCondition1.wav');
-        this.load.audio('game_over_music', '/assets/aud/game over song.mp3');
-        this.load.audio('jump','/assets/aud/CatJump.wav');
+        this.load.audio('music', 'assets/aud/background_song.mp3');
+        this.load.audio('land', 'assets/aud/cat_landing.wav');
+        this.load.audio('glass', 'assets/aud/glass_break.wav');
+        this.load.audio('lose_life', 'assets/aud/Distressed_Meow.mp3');
+        this.load.audio('game_over', 'assets/aud/LoseCondition1.wav');
+        this.load.audio('game_over_music', 'assets/aud/game_over_song.mp3');
+        this.load.audio('jump','assets/aud/CatJump.wav');
 
         // loading kitty run animation
         //this.load.spritesheet('kitty_run', './assets//img/kitty_run02.png',{frameWidth: 90, frameHeight: 100, startFrame: 0, endFrame: 8});
