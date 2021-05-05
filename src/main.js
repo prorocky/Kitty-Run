@@ -1,6 +1,11 @@
 /**
  * Kitty Run
  * 
+ * Gabriella Flores, Makkenzie Zepeda, Oran Shadian, Diego Agurto (GMOD)
+ * 
+ * Submitted: Sunday May 2 11:56 pm
+ * Finished: Tuesday May 4 ~6 pm
+ * 
  * Our design team, Gabriella Flores and Makkenzie Zepeda, formalized the game's style by doing outside studies of the cult classic cartoon, Tom and Jerry. 
  * The creative influence is notable in the simplistic lineart and color palette used throughout the props, main characters, and backdrops. 
  * The design goal was a stylized cartoon experience. All the music was made with real instruments and sounds by Makkenzie Zepeda and her boyfriend Dominic Castelli (sound designer). 
@@ -12,9 +17,6 @@
  * get restored when they appear again, Oran accomplished this by storing a copy of the texture when the object is constructed
  * and when the reset function for the object is called, it restores the original texture. (Oran: looking back, I would have done things a little diffrently,
  * but I made it work with the knowledge I had). 
- * 
- * Submitted: Sunday May 2 11:56 pm
- * Finished: Tuesday May 4 ~6 pm
  * 
  */
 
