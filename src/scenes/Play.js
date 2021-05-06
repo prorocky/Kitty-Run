@@ -97,7 +97,7 @@ class Play extends Phaser.Scene {
 
         runningTime = 0;
         score = 0;
-        lives = 40;
+        lives = 9;
 
         this.gameover = false;
 
@@ -638,7 +638,6 @@ class Play extends Phaser.Scene {
                 element.update();
                 if (this.checkCollision(this.p1Kitty, element)) {
                     if (element.value) {
-                        console.log(element.value);
                         score += element.value;
                         this.sound.play('glass');
                         element.setTexture('b_frame');
